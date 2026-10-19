@@ -1,0 +1,135 @@
+import React from 'react';
+import { ArrowUp } from 'lucide-react';
+
+const CURRENT_YEAR = new Date().getFullYear();
+
+export const Footer: React.FC = () => {
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <footer
+      role="contentinfo"
+      style={{
+        backgroundColor: 'var(--color-black)',
+        borderTop: '1px solid var(--color-border)',
+        padding: '3.5rem 0 2.5rem 0',
+        position: 'relative'
+      }}
+    >
+      <div className="container">
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            gap: '2.5rem',
+            paddingBottom: '2.5rem',
+            borderBottom: '1px solid rgba(242, 238, 230, 0.08)'
+          }}
+        >
+          {/* Brand & Closing Identity */}
+          <div style={{ maxWidth: '420px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: 'var(--radius-xs)',
+                  background: 'linear-gradient(135deg, #2a2b2a 0%, #151514 100%)',
+                  border: '1px solid rgba(197, 154, 96, 0.3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  color: 'var(--color-hunter-amber)'
+                }}
+              >
+                NX
+              </div>
+              <span
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 700,
+                  fontSize: '1.15rem',
+                  color: 'var(--color-bone-white)',
+                  letterSpacing: '0.04em'
+                }}
+              >
+                NAX // VYROBYTE
+              </span>
+            </div>
+
+            <p style={{ fontSize: '0.875rem', color: 'var(--color-muted)', lineHeight: 1.6 }}>
+              Beyond the Build. Creating meaningful digital experiences, practical products,
+              and engineered technology that solves real problems.
+            </p>
+          </div>
+
+          {/* Quick Anchor Links */}
+          <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
+            <div>
+              <div className="tech-coordinate" style={{ marginBottom: '0.75rem' }}>
+                SECTIONS
+              </div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8125rem', fontFamily: 'var(--font-mono)' }}>
+                <li><a href="#about" style={{ color: 'var(--color-muted)' }}>01 Story</a></li>
+                <li><a href="#capabilities" style={{ color: 'var(--color-muted)' }}>02 Craft</a></li>
+                <li><a href="#projects" style={{ color: 'var(--color-muted)' }}>03 Builds</a></li>
+                <li><a href="#vision" style={{ color: 'var(--color-muted)' }}>04 Vision</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="tech-coordinate" style={{ marginBottom: '0.75rem' }}>
+                DIRECT
+              </div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8125rem', fontFamily: 'var(--font-mono)' }}>
+                <li><a href="#principles" style={{ color: 'var(--color-muted)' }}>05 Principles</a></li>
+                <li><a href="#contact" style={{ color: 'var(--color-muted)' }}>06 Contact</a></li>
+                <li><a href="https://github.com/NavinChaudhary" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)' }}>GitHub</a></li>
+              </ul>
+            </div>
+
+            {/* Back to Top Control */}
+            <div>
+              <button
+                onClick={scrollToTop}
+                className="btn btn-secondary"
+                style={{ padding: '0.65rem 1rem', fontSize: '0.75rem' }}
+                aria-label="Scroll back to top of page"
+              >
+                <span>TOP</span>
+                <ArrowUp size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Attribution Bar */}
+        <div
+          style={{
+            paddingTop: '2rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '1rem'
+          }}
+        >
+          <div className="tech-coordinate">
+            &copy; {CURRENT_YEAR} NAVIN (NAX) CHAUDHARY. ALL RIGHTS RESERVED.
+          </div>
+          <div className="tech-coordinate" style={{ color: 'var(--color-hunter-amber)' }}>
+            DISCIPLINED DIGITAL CRAFT &bull; VYROBYTE
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};

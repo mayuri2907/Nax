@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#10100F"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="#292A29" stroke-width="2"/>
+  <!-- Machined geometric N mark with amber highlight -->
+  <path d="M18 46 L18 18 L24 18 L40 40 L40 18 L46 18 L46 46 L40 46 L24 24 L24 46 Z" fill="#F2EEE6"/>
+  <circle cx="43" cy="21" r="3" fill="#C59A60"/>
+  <circle cx="21" cy="43" r="2" fill="#C59A60" opacity="0.6"/>
+</svg>
