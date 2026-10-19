@@ -1,4 +1,4 @@
-# NAX // APPLICATION ARCHITECTURE
+# NAX // APPLICATION ARCHITECTURE (V2: MULTI-PAGE 3D SUITE)
 ## Technical Design & Component Hierarchy
 
 ---
@@ -7,80 +7,59 @@
 
 ```
 n:/PortFolio/
-├── index.html                  # SEO head, fonts, theme color, SVG favicon
-├── package.json                # Dependencies: React 19, Three.js, GSAP, Lucide
-├── tsconfig.json               # Modular TypeScript compiler configurations
-├── vite.config.ts              # Vite 8 build pipeline
-├── public/
-│   └── favicon.svg             # Custom industrial geometric monogram
 ├── src/
-│   ├── main.tsx                # StrictMode entry
-│   ├── App.tsx                 # Root application composition & intro state
-│   ├── index.css               # Global CSS import
+│   ├── App.tsx                  # BrowserRouter, Global CustomCursor, Routes, PagePagination
+│   ├── main.tsx                 # StrictMode entry
 │   ├── styles/
-│   │   ├── tokens.css          # Design system CSS variables
-│   │   └── globals.css         # Reset, typography, buttons, utilities
-│   ├── types/
-│   │   └── index.ts            # Type contracts (Projects, Capabilities, NavItem)
+│   │   ├── tokens.css           # Cyber-Titanium, Quantum Cyan, and Amber tokens
+│   │   └── globals.css          # Viewport styles, cursor hiding, button styles
 │   ├── data/
-│   │   ├── profile.ts          # Central founder identity, copy, and mission
-│   │   ├── projects.ts         # Central project definitions & status flags
-│   │   ├── capabilities.ts     # Verified technical groupings & focus areas
-│   │   ├── principles.ts       # 3 core non-negotiable principles
-│   │   └── socialLinks.ts      # Navigation items & validated contact configs
-│   ├── hooks/
-│   │   ├── useScrollProgress.ts# rAF-throttled scroll progress calculation
-│   │   ├── useReducedMotion.ts # useSyncExternalStore media query listener
-│   │   └── useActiveSection.ts # IntersectionObserver active-section tracker
-│   ├── three/
-│   │   ├── AbstractSculptureScene.tsx # Three.js WebGL procedural sculpture
-│   │   ├── SceneFallback.tsx          # High-fidelity SVG & CSS metallic fallback
-│   │   └── SceneCanvas.tsx            # Error boundary & lazy-loading wrapper
+│   │   ├── pagesConfig.ts       # Central multi-page route definitions (PAGES_CONFIG)
+│   │   ├── profile.ts           # Founder bio, headlines, and VYROBYTE mission
+│   │   ├── projects.ts          # Central project data (NexusSync, AI SkillPath, VyroCore)
+│   │   ├── capabilities.ts      # 5 verified capability groupings
+│   │   ├── principles.ts        # 3 core guiding principles
+│   │   └── socialLinks.ts       # Contact coordinates & links
 │   ├── components/
-│   │   ├── IntroSequence.tsx   # Cinematic opening overlay with GSAP timeline
-│   │   ├── Navigation.tsx      # Sticky navbar with mobile drawer
-│   │   ├── ScrollProgress.tsx  # Document reading progress bar
-│   │   └── Footer.tsx          # Brand closure, anchor links, back-to-top
-│   └── sections/
-│       ├── Hero.tsx            # Hero presentation with 3D sculpture
-│       ├── About.tsx           # Section 01: The Story
-│       ├── Capabilities.tsx    # Section 02: The Craft
-│       ├── Projects.tsx        # Section 03: Selected Builds + Specs modal
-│       ├── VyrobyteVision.tsx  # Section 04: The Vision (VYROBYTE)
-│       ├── Principles.tsx      # Section 05: The Principles
-│       └── Contact.tsx         # Section 06: Let's Build + Inquiry Composer
-└── docs/                       # Project documentation
+│   │   ├── CustomCursor.tsx     # Canvas particle tracer sparks & magnetic follower ring
+│   │   ├── Card3DTilt.tsx       # Reusable 3D perspective mouse-tilt wrapper
+│   │   ├── Navigation.tsx       # Sticky navbar with React Router NavLinks & mobile drawer
+│   │   ├── PagePagination.tsx   # Floating bottom dock with prev/next & keyboard arrows
+│   │   ├── IntroSequence.tsx    # Cinematic opening overlay with GSAP timeline
+│   │   └── Footer.tsx           # Multi-page footer with internal links & back-to-top
+│   ├── pages/
+│   │   ├── HomePage.tsx         # Route / (Overview with 3D Monolith)
+│   │   ├── AboutPage.tsx        # Route /about (01 Story with 3D Neural Node)
+│   │   ├── CapabilitiesPage.tsx # Route /capabilities (02 Craft with 3D Micro-Cubes Matrix)
+│   │   ├── ProjectsPage.tsx     # Route /projects (03 Builds with 3D Blueprint Cage)
+│   │   ├── VisionPage.tsx       # Route /vision (04 Vision with 3D Celestial Globe)
+│   │   ├── PrinciplesPage.tsx   # Route /principles (05 Principles with 3D Prisms)
+│   │   └── ContactPage.tsx      # Route /contact (06 Contact with 3D Signal Beacon)
+│   └── three/
+│       ├── AbstractSculptureScene.tsx # 3D Monolith (Hero)
+│       ├── About3DScene.tsx           # 3D Neural Node (About)
+│       ├── Capabilities3DScene.tsx    # 3D Matrix of Cubes (Capabilities)
+│       ├── Projects3DScene.tsx        # 3D Blueprint Cage (Projects)
+│       ├── Vision3DScene.tsx          # 3D Celestial Globe (Vision)
+│       ├── Principles3DScene.tsx      # 3D Crystalline Prisms (Principles)
+│       ├── Contact3DScene.tsx         # 3D Signal Beacon (Contact)
+│       ├── SceneCanvas.tsx            # Error boundary & lazy-loading wrapper
+│       └── SceneFallback.tsx          # High-fidelity SVG & CSS metallic fallback
 ```
 
 ---
 
-## 2. 3D WebGL Pipeline & Fallback Architecture
+## 2. Multi-Page Routing & Interaction System
 
-### `AbstractSculptureScene.tsx`
-- **Render Engine**: Three.js WebGLRenderer with `ACESFilmicToneMapping` and `exposure = 1.25`.
-- **Procedural Geometry**:
-  - `monolithMesh`: Faceted `IcosahedronGeometry` with brushed gunmetal PBR material (`roughness: 0.28`, `metalness: 0.88`).
-  - `monolithWireframe`: `EdgesGeometry` chamfer overlay with hunter amber material (`#C59A60`, `opacity: 0.65`).
-  - `coreMesh`: Internal `OctahedronGeometry` with amber emissive radiance.
-  - Orbital caliper rings (`TorusGeometry`) counter-rotating along multiple axes.
-  - Floating precision coordinate markers (`BoxGeometry`).
-- **Interaction Model**:
-  - Pointer moves calculate normalized coordinates damped by lerp (`currentMouse += (targetMouse - currentMouse) * 0.05`).
-  - Document scroll drives rotation along the Y axis and tilt.
-  - Touch devices disable pointer tracking and rely on smooth ambient floating.
-  - Pixel ratio is clamped to `Math.min(devicePixelRatio, 2)` to prevent mobile thermal throttling.
-- **Resource Lifecycle**:
-  - Every geometry and material is explicitly `.dispose()`d on unmount.
-  - The DOM element is removed and `cancelAnimationFrame` invoked.
-
-### `SceneFallback.tsx`
-- When WebGL is unavailable or fails context creation, `SceneCanvas.tsx` catches the failure via React `ErrorBoundary` and seamlessly mounts `SceneFallback`.
-- Rendered with an art-directed SVG radial gradient composition featuring identical faceted geometry, caliper rings, and coordinates.
-
----
-
-## 3. Animation & Timing Ownership
-
-- **Opening Cinematic**: Driven by `GSAP` timeline wrapped in `gsap.context()` for clean StrictMode cleanup. Bypassed immediately on Esc key or if `sessionStorage.getItem('nax_intro_completed')` is set.
-- **Scroll Tracking**: Driven by native browser `IntersectionObserver` in `useActiveSection` with `rootMargin: '-20% 0px -50% 0px'`.
-- **Top Reading Bar**: Calculated using `useScrollProgress` throttled with `window.requestAnimationFrame`.
+- **Multi-Page Routes**: Powered by `react-router-dom` (`BrowserRouter`, `Routes`, `Route`).
+  - No single-page scroll layout. Each page is an isolated, elegant viewport (`.page-viewport`).
+- **Interactive Particle Tracer & Custom Cursor**:
+  - `CustomCursor.tsx` manages a full-viewport canvas emitting glowing particle sparks with physical decay and velocity.
+  - A magnetic ring follows with spring physics and expands on hoverable elements.
+  - Native cursor hidden on desktop fine-pointer devices.
+- **Card 3D Tilt Component**:
+  - `Card3DTilt.tsx` computes relative pointer coordinates within the card bounding box and applies hardware-accelerated `perspective(1000px) rotateX(...) rotateY(...) scale3d(...)` transforms with smooth inertia release.
+- **Page Pagination Dock**:
+  - `PagePagination.tsx` sits fixed at the bottom center.
+  - Supports clicking `PREV`, `NEXT`, or direct page numbers (`00` to `06`).
+  - Listens to `ArrowLeft` and `ArrowRight` keyboard events for effortless browsing.

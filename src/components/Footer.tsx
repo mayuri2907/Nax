@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUp } from 'lucide-react';
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -78,10 +79,10 @@ export const Footer: React.FC = () => {
                 SECTIONS
               </div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8125rem', fontFamily: 'var(--font-mono)' }}>
-                <li><a href="#about" style={{ color: 'var(--color-muted)' }}>01 Story</a></li>
-                <li><a href="#capabilities" style={{ color: 'var(--color-muted)' }}>02 Craft</a></li>
-                <li><a href="#projects" style={{ color: 'var(--color-muted)' }}>03 Builds</a></li>
-                <li><a href="#vision" style={{ color: 'var(--color-muted)' }}>04 Vision</a></li>
+                <li><Link to="/about" style={{ color: 'var(--color-muted)' }}>01 Story</Link></li>
+                <li><Link to="/capabilities" style={{ color: 'var(--color-muted)' }}>02 Craft</Link></li>
+                <li><Link to="/projects" style={{ color: 'var(--color-muted)' }}>03 Builds</Link></li>
+                <li><Link to="/vision" style={{ color: 'var(--color-muted)' }}>04 Vision</Link></li>
               </ul>
             </div>
 
@@ -90,8 +91,8 @@ export const Footer: React.FC = () => {
                 DIRECT
               </div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8125rem', fontFamily: 'var(--font-mono)' }}>
-                <li><a href="#principles" style={{ color: 'var(--color-muted)' }}>05 Principles</a></li>
-                <li><a href="#contact" style={{ color: 'var(--color-muted)' }}>06 Contact</a></li>
+                <li><Link to="/principles" style={{ color: 'var(--color-muted)' }}>05 Principles</Link></li>
+                <li><Link to="/contact" style={{ color: 'var(--color-muted)' }}>06 Contact</Link></li>
                 <li><a href="https://github.com/NavinChaudhary" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)' }}>GitHub</a></li>
               </ul>
             </div>

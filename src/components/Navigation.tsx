@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { navItems } from '../data/socialLinks';
-import { useActiveSection } from '../hooks/useActiveSection';
+import { PAGES_CONFIG } from '../data/pagesConfig';
 
 export const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const location = useLocation();
 
-  const sectionIds = navItems.map((item) => item.id);
-  const activeSection = useActiveSection(sectionIds, 'hero');
-
-  // Track scroll state for background blur
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -19,6 +16,11 @@ export const Navigation: React.FC = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
 
   // Lock body scroll and handle Escape key when mobile menu is open
   useEffect(() => {
@@ -41,27 +43,6 @@ export const Navigation: React.FC = () => {
     };
   }, [mobileMenuOpen]);
 
-  // Smooth scroll handler taking into account sticky header offset
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-
-    const targetEl = document.getElementById(id);
-    if (!targetEl) return;
-
-    const headerOffset = 76;
-    const elementPosition = targetEl.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
-
-    // Update URL hash without jumping
-    window.history.pushState(null, '', `#${id}`);
-  };
-
   return (
     <header
       className={`site-navigation ${isScrolled ? 'site-navigation-scrolled' : ''}`}
@@ -71,11 +52,13 @@ export const Navigation: React.FC = () => {
         left: 0,
         right: 0,
         height: 'var(--header-height)',
-        zIndex: 100,
+        zIndex: 'var(--z-header)' as unknown as number,
         transition: 'all var(--transition-normal)',
-        backgroundColor: isScrolled ? 'rgba(16, 16, 15, 0.92)' : 'transparent',
-        backdropFilter: isScrolled ? 'blur(16px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(242, 238, 230, 0.1)' : '1px solid transparent'
+        backgroundColor: isScrolled ? 'rgba(8, 11, 16, 0.94)' : 'rgba(8, 11, 16, 0.65)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: isScrolled
+          ? '1px solid rgba(0, 229, 255, 0.2)'
+          : '1px solid rgba(248, 250, 252, 0.08)'
       }}
     >
       <div
@@ -88,9 +71,8 @@ export const Navigation: React.FC = () => {
         }}
       >
         {/* Brand Mark Left */}
-        <a
-          href="#hero"
-          onClick={(e) => scrollToSection(e, 'hero')}
+        <Link
+          to="/"
           className="brand-logo"
           aria-label="Navin Chaudhary Portfolio Home"
           style={{
@@ -99,14 +81,15 @@ export const Navigation: React.FC = () => {
             gap: '0.875rem'
           }}
         >
-          {/* Monogram emblem */}
+          {/* Cyber monogram emblem */}
           <div
             style={{
-              width: '36px',
-              height: '36px',
+              width: '38px',
+              height: '38px',
               borderRadius: 'var(--radius-xs)',
-              background: 'linear-gradient(135deg, #2a2b2a 0%, #151514 100%)',
-              border: '1px solid rgba(197, 154, 96, 0.35)',
+              background: 'linear-gradient(135deg, #161d26 0%, #080b10 100%)',
+              border: '1px solid rgba(0, 229, 255, 0.4)',
+              boxShadow: '0 0 15px rgba(0, 229, 255, 0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -117,7 +100,8 @@ export const Navigation: React.FC = () => {
               letterSpacing: '0.05em'
             }}
           >
-            <span style={{ color: 'var(--color-hunter-amber)' }}>N</span>X
+            <span style={{ color: 'var(--color-cyan-glow)' }}>N</span>
+            <span style={{ color: 'var(--color-hunter-amber)' }}>X</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -125,7 +109,7 @@ export const Navigation: React.FC = () => {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
-                fontSize: '1rem',
+                fontSize: '1.05rem',
                 letterSpacing: '0.04em',
                 color: 'var(--color-bone-white)'
               }}
@@ -144,7 +128,7 @@ export const Navigation: React.FC = () => {
               VYROBYTE FOUNDER
             </span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Navigation Links */}
         <nav
@@ -153,27 +137,26 @@ export const Navigation: React.FC = () => {
           style={{
             display: 'none',
             alignItems: 'center',
-            gap: '1.75rem'
+            gap: '1.5rem'
           }}
         >
-          {navItems.map((item) => {
-            const isActive = activeSection === item.id;
+          {PAGES_CONFIG.map((p) => {
+            const isActive = location.pathname === p.path;
             return (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={(e) => scrollToSection(e, item.id)}
+              <NavLink
+                key={p.path}
+                to={p.path}
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.8125rem',
                   letterSpacing: '0.06em',
-                  color: isActive ? 'var(--color-hunter-amber)' : 'var(--color-muted)',
+                  color: isActive ? 'var(--color-cyan-glow)' : 'var(--color-muted)',
                   transition: 'color var(--transition-fast)',
                   position: 'relative',
-                  padding: '0.4rem 0'
+                  padding: '0.45rem 0'
                 }}
               >
-                {item.label}
+                <span>{p.label}</span>
                 {isActive && (
                   <span
                     style={{
@@ -182,27 +165,26 @@ export const Navigation: React.FC = () => {
                       left: 0,
                       right: 0,
                       height: '2px',
-                      backgroundColor: 'var(--color-hunter-amber)',
-                      boxShadow: '0 0 8px rgba(197, 154, 96, 0.8)'
+                      background: 'var(--gradient-cyber)',
+                      boxShadow: '0 0 10px rgba(0, 229, 255, 0.9)'
                     }}
                   />
                 )}
-              </a>
+              </NavLink>
             );
           })}
         </nav>
 
         {/* Desktop Right CTA */}
         <div className="desktop-cta" style={{ display: 'none', alignItems: 'center', gap: '1rem' }}>
-          <a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, 'contact')}
-            className="btn btn-primary"
-            style={{ padding: '0.65rem 1.25rem', fontSize: '0.8125rem' }}
+          <Link
+            to="/contact"
+            className="btn btn-cyan"
+            style={{ padding: '0.6rem 1.25rem', fontSize: '0.8125rem' }}
           >
             <span>LET&rsquo;S BUILD</span>
             <ArrowUpRight size={15} />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Hamburger Toggle Button */}
@@ -218,8 +200,8 @@ export const Navigation: React.FC = () => {
             width: '42px',
             height: '42px',
             borderRadius: 'var(--radius-xs)',
-            background: 'rgba(41, 42, 41, 0.4)',
-            border: '1px solid var(--color-border)',
+            background: 'rgba(22, 29, 38, 0.6)',
+            border: '1px solid rgba(0, 229, 255, 0.3)',
             color: 'var(--color-bone-white)'
           }}
         >
@@ -241,8 +223,8 @@ export const Navigation: React.FC = () => {
             right: 0,
             bottom: 0,
             height: 'calc(100vh - var(--header-height))',
-            backgroundColor: 'rgba(16, 16, 15, 0.98)',
-            backdropFilter: 'blur(20px)',
+            backgroundColor: 'rgba(8, 11, 16, 0.98)',
+            backdropFilter: 'blur(25px)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -257,52 +239,52 @@ export const Navigation: React.FC = () => {
               gap: '1.25rem'
             }}
           >
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id;
+            {PAGES_CONFIG.map((p) => {
+              const isActive = location.pathname === p.path;
               return (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  onClick={(e) => scrollToSection(e, item.id)}
+                <Link
+                  key={p.path}
+                  to={p.path}
+                  onClick={() => setMobileMenuOpen(false)}
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.35rem',
                     fontWeight: 600,
-                    color: isActive ? 'var(--color-hunter-amber)' : 'var(--color-bone-white)',
+                    color: isActive ? 'var(--color-cyan-glow)' : 'var(--color-bone-white)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     padding: '0.5rem 0',
-                    borderBottom: '1px solid rgba(242, 238, 230, 0.08)'
+                    borderBottom: '1px solid rgba(248, 250, 252, 0.08)'
                   }}
                 >
-                  <span>{item.label}</span>
+                  <span>{p.fullTitle}</span>
                   {isActive && (
                     <span
                       style={{
                         width: '8px',
                         height: '8px',
                         borderRadius: '50%',
-                        backgroundColor: 'var(--color-hunter-amber)',
-                        boxShadow: '0 0 8px rgba(197, 154, 96, 0.9)'
+                        backgroundColor: 'var(--color-cyan-glow)',
+                        boxShadow: '0 0 10px rgba(0, 229, 255, 0.9)'
                       }}
                     />
                   )}
-                </a>
+                </Link>
               );
             })}
           </nav>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
-            <a
-              href="#contact"
-              onClick={(e) => scrollToSection(e, 'contact')}
+            <Link
+              to="/contact"
+              onClick={() => setMobileMenuOpen(false)}
               className="btn btn-amber"
               style={{ width: '100%', padding: '0.875rem' }}
             >
-              <span>LET&rsquo;S BUILD TOGETHER</span>
+              <span>DISCUSS A BUILD WITH NAX</span>
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
             <div
               style={{
                 fontFamily: 'var(--font-mono)',
@@ -311,15 +293,14 @@ export const Navigation: React.FC = () => {
                 textAlign: 'center'
               }}
             >
-              NAX // VYROBYTE &bull; FOUNDER PORTFOLIO
+              NAX // VYROBYTE &bull; FOUNDER SUITE
             </div>
           </div>
         </div>
       )}
 
-      {/* Responsive media query injected inline for desktop nav display */}
       <style>{`
-        @media (min-width: 900px) {
+        @media (min-width: 960px) {
           .desktop-nav {
             display: flex !important;
           }

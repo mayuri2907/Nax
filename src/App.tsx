@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { IntroSequence } from './components/IntroSequence';
-import { ScrollProgress } from './components/ScrollProgress';
+import { CustomCursor } from './components/CustomCursor';
 import { Navigation } from './components/Navigation';
-import { Hero } from './sections/Hero';
-import { About } from './sections/About';
-import { Capabilities } from './sections/Capabilities';
-import { Projects } from './sections/Projects';
-import { VyrobyteVision } from './sections/VyrobyteVision';
-import { Principles } from './sections/Principles';
-import { Contact } from './sections/Contact';
+import { PagePagination } from './components/PagePagination';
 import { Footer } from './components/Footer';
+
+import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { CapabilitiesPage } from './pages/CapabilitiesPage';
+import { ProjectsPage } from './pages/ProjectsPage';
+import { VisionPage } from './pages/VisionPage';
+import { PrinciplesPage } from './pages/PrinciplesPage';
+import { ContactPage } from './pages/ContactPage';
 
 export function App() {
   const [introFinished, setIntroFinished] = useState<boolean>(() => {
@@ -20,42 +23,39 @@ export function App() {
     }
   });
 
-  useEffect(() => {
-    // When intro finishes, ensure scroll is enabled
-    if (introFinished) {
-      document.body.style.overflow = '';
-    } else {
-      document.body.style.overflow = 'hidden';
-    }
-  }, [introFinished]);
-
   return (
-    <div className="portfolio-app-root">
+    <BrowserRouter>
+      {/* High-Precision Mouse Tracer & Magnetic Particle Follower */}
+      <CustomCursor />
+
       {/* Cinematic Opening Sequence */}
       {!introFinished && (
         <IntroSequence onComplete={() => setIntroFinished(true)} />
       )}
 
-      {/* Top Document Scroll Progress Bar */}
-      <ScrollProgress />
-
-      {/* Main Sticky Navigation */}
+      {/* Sticky Top Navigation with Multi-Page Routing */}
       <Navigation />
 
-      {/* Main Scrollable Founder Experience */}
-      <main id="main-content">
-        <Hero />
-        <About />
-        <Capabilities />
-        <Projects />
-        <VyrobyteVision />
-        <Principles />
-        <Contact />
+      {/* Multi-Page Route Viewport */}
+      <main id="main-content" style={{ minHeight: 'calc(100vh - var(--header-height))', position: 'relative' }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/capabilities" element={<CapabilitiesPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/vision" element={<VisionPage />} />
+          <Route path="/principles" element={<PrinciplesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
+
+      {/* Floating Bottom Quick-Jump Page Pagination Dock */}
+      <PagePagination />
 
       {/* Footer */}
       <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
 

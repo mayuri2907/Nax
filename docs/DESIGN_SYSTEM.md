@@ -1,64 +1,52 @@
-# NAX // DESIGN SYSTEM
+# NAX // DESIGN SYSTEM (V2: CYBER-TITANIUM SUITE)
 ## Project Codename: NAX / BEYOND THE BUILD
 ## Startup Identity: VYROBYTE
 
 ---
 
-## 1. Brand Identity & Visual Principles
+## 1. Upgraded Theme & Brand Aesthetics
 
-The visual language is informed by high-precision industrial engineering: tactile, restrained, confident, and architectural.
+The theme has been elevated to a **Cyber-Titanium & Quantum Cyan / Luminous Amber** design language.
 
-### Critical Restriction
-Motorcycle aesthetics serve strictly as abstract atmospheric inspiration (machined metal, raw textures, controlled warm lighting). No motorcycles, parts, logos, or biker clichés appear anywhere in the design.
-
-### Aesthetic Pillars
-- **Obsidian & Gunmetal Foundations**: Deep, matte black and brushed dark steel backgrounds.
-- **Hunter Amber Accents**: Controlled, high-value highlights (`#C59A60`) used intentionally for focal points, indicators, and edge lighting.
-- **Machined Geometric Forms**: Sharp 1px borders, subtle chamfers, and monospace technical metadata tags (`SEC.01`, `PRIN.01`, `SPEC.ID`).
-- **Tactile Transitions**: Smooth cursor damping, subtle card lifts, and physics-inspired interaction feedback.
+### Core Visual Principles
+- **Deep Midnight & Obsidian Canvas**: `#080B10` and `#040608` with radial cyan and amber atmospheric backdrops.
+- **Quantum Cyan Highlights**: `#00E5FF` used for interactive accents, technical calipers, neural wireframes, and active links.
+- **Luminous Cyber Amber**: `#FF9E2C` used for focal emphasis, key spotlights, and primary CTAs.
+- **Tactile 3D Everywhere**: Every separate page features an interactive hardware-accelerated 3D Three.js centerpiece and perspective mouse-tilt physics on all cards.
+- **Particle Tracer & Magnetic Cursor**: Fluid glowing sparks and a lagging spring ring follow the mouse coordinates on desktop with hover expansion.
 
 ---
 
 ## 2. Color Palette & CSS Variables
 
-| CSS Token | Hex / Value | Semantic Role |
+| CSS Token | Hex / Value | Role |
 | :--- | :--- | :--- |
-| `--color-obsidian` | `#10100F` | Primary deep background |
-| `--color-black` | `#080808` | Canvas & contrast floor |
-| `--color-gunmetal` | `#292A29` | Structural borders, card gradients |
-| `--color-metal-light` | `#77766F` | Secondary technical text & calipers |
-| `--color-hunter-amber`| `#C59A60` | Primary accent, rim lights, active states |
-| `--color-bone-white` | `#F2EEE6` | Primary headlines, active typography |
-| `--color-muted` | `#A9A49B` | Paragraph text, secondary labels |
-| `--color-border` | `rgba(242, 238, 230, 0.14)` | Dividers, card boundaries |
-| `--color-border-active`| `rgba(197, 154, 96, 0.45)` | Hover borders, active cards |
+| `--color-obsidian` | `#080B10` | Primary deep cosmic background |
+| `--color-black` | `#040608` | Deep contrast floor |
+| `--color-gunmetal` | `#161D26` | Structural borders, card gradients |
+| `--color-cyan-glow` | `#00E5FF` | High-tech quantum cyan highlights & edges |
+| `--color-hunter-amber`| `#FF9E2C` | Luminous cyber amber accent & spotlights |
+| `--color-bone-white` | `#F8FAFC` | Primary headlines & active text |
+| `--color-muted` | `#94A3B8` | Paragraph copy & secondary telemetry |
+| `--color-border` | `rgba(248, 250, 252, 0.12)` | Subtle holographic borders |
+| `--color-border-active`| `rgba(255, 158, 44, 0.65)` | Active amber hover borders |
+| `--color-border-cyan` | `rgba(0, 229, 255, 0.5)` | Active cyan card borders |
 
 ---
 
-## 3. Typography Hierarchy
+## 3. Dedicated 3D Scenes by Page
 
-- **Display Headings**: `Space Grotesk` (Weights 600, 700)
-  - Clamp-based fluid font scaling (`clamp(2rem, 5.5vw, 4.25rem)`)
-  - Letter spacing: `-0.02em` to `-0.035em`
-- **Body Text**: `Inter` (Weights 400, 500)
-  - Line height: `1.65` to `1.75` for relaxed editorial readability
-- **Technical Telemetry**: `JetBrains Mono` (Weights 400, 500, 600)
-  - Letter spacing: `0.06em` to `0.2em` uppercase
-
----
-
-## 4. Layout & Spacing Rules
-
-- Container Max Width: `1240px` (standard), `1400px` (wide)
-- Section Vertical Padding: `clamp(4.5rem, 8vw, 7.5rem)`
-- Header Offset: `76px` standard sticky header height
-- Border Radii: `3px` (industrial micro-radius), `6px` (cards), `10px` (dialogs)
-- Accessibility: Focus visible rings using `outline: 2px solid var(--color-hunter-amber)` with `3px` offset
+1. **Overview (`/`)**: `AbstractSculptureScene.tsx` — Hyper-Monolith with gyroscopic rings.
+2. **01 Story (`/about`)**: `About3DScene.tsx` — 3D Neural Polyhedral Core & orbital nodes.
+3. **02 Craft (`/capabilities`)**: `Capabilities3DScene.tsx` — 3D Kinetic Micro-Cubes Matrix.
+4. **03 Builds (`/projects`)**: `Projects3DScene.tsx` — 3D Holographic Blueprint Cage.
+5. **04 Vision (`/vision`)**: `Vision3DScene.tsx` — 3D Celestial Planetary Globe with particle rings.
+6. **05 Principles (`/principles`)**: `Principles3DScene.tsx` — 3D Tri-Axis Crystalline Prism Array.
+7. **06 Contact (`/contact`)**: `Contact3DScene.tsx` — 3D Quantum Signal Beacon with expanding pulse waves.
 
 ---
 
-## 5. Motion & Interaction Standards
+## 4. Multi-Page Layout & Navigation
 
-- **Damping**: Pointer parallax uses inertia lerp (`damping factor: 0.05`)
-- **Scroll Sync**: Header background blur and document reading indicator update via `requestAnimationFrame`
-- **Reduced Motion**: Disables continuous 3D idle rotation, pauses timeline animations, and provides instant transition states
+- **Separate Standalone Pages**: No endless single-page scroll; each route (`/`, `/about`, `/capabilities`, `/projects`, `/vision`, `/principles`, `/contact`) is an independent full-screen viewport.
+- **Quick-Jump Pagination Dock**: Floating bottom bar with `PREV`, numerical page badges (`00` to `06`), `NEXT`, and keyboard arrow navigation (`←` and `→`).

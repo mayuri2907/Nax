@@ -1,26 +1,37 @@
 :root {
   /* ==================================================
-     CORE BRAND PALETTE
+     CYBER-TITANIUM & LUMINOUS AMBER / CYAN PALETTE
      ================================================== */
-  --color-obsidian: #10100F;
-  --color-black: #080808;
-  --color-gunmetal: #292A29;
-  --color-metal-light: #77766F;
-  --color-hunter-amber: #C59A60;
-  --color-hunter-amber-rgb: 197, 154, 96;
-  --color-bone-white: #F2EEE6;
-  --color-muted: #A9A49B;
-  --color-border: rgba(242, 238, 230, 0.14);
-  --color-border-subtle: rgba(242, 238, 230, 0.08);
-  --color-border-active: rgba(197, 154, 96, 0.45);
-  
-  /* Metallic and Industrial Surface Tints */
-  --surface-obsidian-glass: rgba(16, 16, 15, 0.85);
-  --surface-gunmetal-tint: rgba(41, 42, 41, 0.45);
-  --surface-card: #151514;
-  --surface-card-hover: #1c1d1c;
-  --amber-glow: rgba(197, 154, 96, 0.18);
-  --amber-glow-strong: rgba(197, 154, 96, 0.35);
+  --color-obsidian: #080b10;
+  --color-black: #040608;
+  --color-gunmetal: #161d26;
+  --color-gunmetal-light: #1e2836;
+  --color-metal-light: #64748b;
+  --color-hunter-amber: #ff9e2c;
+  --color-hunter-amber-rgb: 255, 158, 44;
+  --color-cyan-glow: #00e5ff;
+  --color-cyan-glow-rgb: 0, 229, 255;
+  --color-bone-white: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-border: rgba(248, 250, 252, 0.12);
+  --color-border-subtle: rgba(248, 250, 252, 0.06);
+  --color-border-active: rgba(255, 158, 44, 0.65);
+  --color-border-cyan: rgba(0, 229, 255, 0.5);
+
+  /* Luminous Glows and Surface Tints */
+  --surface-obsidian-glass: rgba(8, 11, 16, 0.88);
+  --surface-gunmetal-tint: rgba(22, 29, 38, 0.55);
+  --surface-card: rgba(14, 19, 28, 0.75);
+  --surface-card-hover: rgba(20, 28, 42, 0.9);
+  --amber-glow: rgba(255, 158, 44, 0.22);
+  --amber-glow-strong: rgba(255, 158, 44, 0.45);
+  --cyan-glow: rgba(0, 229, 255, 0.2);
+  --cyan-glow-strong: rgba(0, 229, 255, 0.45);
+
+  /* Gradients */
+  --gradient-cyber: linear-gradient(135deg, #ff9e2c 0%, #00e5ff 100%);
+  --gradient-titanium: linear-gradient(145deg, #161d26 0%, #0a0d13 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
 
   /* Typography */
   --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -28,17 +39,16 @@
   --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Layout and Spacing */
-  --container-max: 1240px;
-  --container-wide: 1400px;
-  --section-padding-y: clamp(4.5rem, 8vw, 7.5rem);
-  --section-padding-x: clamp(1.25rem, 4vw, 2.5rem);
-  --header-height: 72px;
+  --container-max: 1260px;
+  --container-wide: 1420px;
+  --header-height: 74px;
+  --page-padding-bottom: 5.5rem;
 
   /* Corner Radii */
-  --radius-xs: 3px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
   --radius-full: 9999px;
 
   /* Z-Index Hierarchy */
@@ -47,11 +57,12 @@
   --z-content: 20;
   --z-header: 100;
   --z-drawer: 200;
+  --z-pagination: 250;
   --z-intro: 500;
-  --z-cursor: 900;
+  --z-cursor: 9000;
 
   /* Transitions */
-  --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-normal: 280ms cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 480ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 450ms cubic-bezier(0.16, 1, 0.3, 1);
 }
