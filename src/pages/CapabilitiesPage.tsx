@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Code2, Server, Database, Box, Compass, CheckCircle2, ArrowRight } from 'lucide-react';
 import { capabilitiesData } from '../data/capabilities';
-import { Capabilities3DScene } from '../three/Capabilities3DScene';
 import { Card3DTilt } from '../components/Card3DTilt';
 
 export const CapabilitiesPage: React.FC = () => {
@@ -11,17 +10,17 @@ export const CapabilitiesPage: React.FC = () => {
   const getCategoryIcon = (id: string) => {
     switch (id) {
       case 'frontend':
-        return <Code2 size={20} color="var(--color-cyan-glow)" />;
+        return <Code2 size={22} color="var(--color-accent)" />;
       case 'backend':
-        return <Server size={20} color="var(--color-hunter-amber)" />;
+        return <Server size={22} color="var(--color-azure)" />;
       case 'data-architecture':
-        return <Database size={20} color="var(--color-cyan-glow)" />;
+        return <Database size={22} color="var(--color-accent)" />;
       case 'interactive-3d':
-        return <Box size={20} color="var(--color-hunter-amber)" />;
+        return <Box size={22} color="var(--color-azure)" />;
       case 'product-building':
-        return <Compass size={20} color="var(--color-cyan-glow)" />;
+        return <Compass size={22} color="var(--color-accent)" />;
       default:
-        return <Code2 size={20} color="var(--color-cyan-glow)" />;
+        return <Code2 size={22} color="var(--color-accent)" />;
     }
   };
 
@@ -49,7 +48,7 @@ export const CapabilitiesPage: React.FC = () => {
             gap: '0.75rem',
             overflowX: 'auto',
             paddingBottom: '1rem',
-            marginBottom: '1.5rem'
+            marginBottom: '2rem'
           }}
         >
           {capabilitiesData.map((cat, idx) => {
@@ -62,13 +61,13 @@ export const CapabilitiesPage: React.FC = () => {
                 aria-controls={`capability-panel-${cat.id}`}
                 id={`capability-tab-${cat.id}`}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`btn ${isSelected ? 'btn-cyan' : 'btn-secondary'}`}
+                className={`btn ${isSelected ? 'btn-accent' : 'btn-glass'}`}
                 style={{
-                  padding: '0.75rem 1.25rem',
+                  padding: '0.75rem 1.35rem',
                   fontSize: '0.8125rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.6rem',
+                  gap: '0.65rem',
                   flexShrink: 0
                 }}
               >
@@ -81,80 +80,82 @@ export const CapabilitiesPage: React.FC = () => {
           })}
         </div>
 
-        {/* Two-Column Grid: Active Capability Details & 3D Matrix Scene */}
-        <div
-          className="capabilities-view-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '2.5rem',
-            alignItems: 'center'
-          }}
-        >
-          {/* Active Detail Card with 3D Tilt */}
-          <Card3DTilt maxTilt={6} scale={1.01}>
-            <div
-              className="industrial-card"
-              style={{
-                padding: '2.5rem',
-                border: '1px solid rgba(0, 229, 255, 0.4)',
-                boxShadow: '0 0 30px rgba(0, 229, 255, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1.75rem'
-              }}
-            >
-              {/* Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                  <div
-                    style={{
-                      width: '46px',
-                      height: '46px',
-                      borderRadius: 'var(--radius-xs)',
-                      background: 'rgba(0, 229, 255, 0.1)',
-                      border: '1px solid rgba(0, 229, 255, 0.35)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    {getCategoryIcon(activeCategory.id)}
-                  </div>
-                  <div>
-                    <h2 style={{ fontSize: '1.45rem', fontWeight: 700, color: 'var(--color-bone-white)' }}>
-                      {activeCategory.title}
-                    </h2>
-                    <p style={{ fontSize: '0.875rem', color: 'var(--color-muted)', marginTop: '0.2rem' }}>
-                      {activeCategory.tagline}
-                    </p>
-                  </div>
+        {/* Active Capability Showcase Card with 3D Tilt */}
+        <Card3DTilt maxTilt={5} scale={1.01}>
+          <div
+            className="luxury-glass-card"
+            style={{
+              padding: 'clamp(2rem, 4vw, 3rem)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '2rem'
+            }}
+          >
+            {/* Header info */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div
+                  style={{
+                    width: '52px',
+                    height: '52px',
+                    borderRadius: 'var(--radius-sm)',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(229, 169, 82, 0.35)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  {getCategoryIcon(activeCategory.id)}
                 </div>
-                <span className="badge badge-cyan">ACTIVE SPEC</span>
+                <div>
+                  <h2 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+                    {activeCategory.title}
+                  </h2>
+                  <p style={{ fontSize: '0.9375rem', color: 'var(--color-text-secondary)', marginTop: '0.2rem' }}>
+                    {activeCategory.tagline}
+                  </p>
+                </div>
               </div>
 
-              {/* Focus Areas */}
+              <div className="badge badge-accent">
+                <span className="badge-dot" />
+                <span>ACTIVE DOMAIN</span>
+              </div>
+            </div>
+
+            {/* Two Sub-Columns: Core Practices & Verified Stack */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '2rem',
+                paddingTop: '1.5rem',
+                borderTop: '1px solid var(--color-border)'
+              }}
+            >
+              {/* Practices */}
               <div>
-                <div className="tech-coordinate" style={{ marginBottom: '0.75rem' }}>
-                  CORE PRACTICES &bull; FOCUS AREAS
-                </div>
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+                <h3 style={{ fontSize: '0.8125rem', fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', color: 'var(--color-accent)', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                  CORE PRACTICES &bull; ARCHITECTURAL STANDARDS
+                </h3>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   {activeCategory.focusAreas.map((area, fIdx) => (
                     <li
                       key={fIdx}
                       style={{
                         display: 'flex',
                         alignItems: 'flex-start',
-                        gap: '0.65rem',
-                        fontSize: '0.9rem',
-                        color: 'var(--color-bone-white)',
-                        lineHeight: 1.5
+                        gap: '0.75rem',
+                        fontSize: '0.9375rem',
+                        color: 'var(--color-text-primary)',
+                        lineHeight: 1.55
                       }}
                     >
                       <CheckCircle2
-                        size={16}
-                        color="var(--color-cyan-glow)"
-                        style={{ flexShrink: 0, marginTop: '0.25rem' }}
+                        size={17}
+                        color="var(--color-accent)"
+                        style={{ flexShrink: 0, marginTop: '0.2rem' }}
                       />
                       <span>{area}</span>
                     </li>
@@ -162,21 +163,22 @@ export const CapabilitiesPage: React.FC = () => {
                 </ul>
               </div>
 
-              {/* Verified Tech Stack Chips */}
+              {/* Verified Technologies */}
               <div>
-                <div className="tech-coordinate" style={{ marginBottom: '0.75rem' }}>
-                  VERIFIED STACK TECHNOLOGIES
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <h3 style={{ fontSize: '0.8125rem', fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', color: 'var(--color-azure)', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                  VERIFIED TECHNOLOGY STACK
+                </h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.65rem' }}>
                   {activeCategory.technologies.map((tech) => (
                     <span
                       key={tech}
                       className="badge"
                       style={{
-                        fontSize: '0.75rem',
-                        background: 'rgba(22, 29, 38, 0.8)',
-                        color: 'var(--color-bone-white)',
-                        borderColor: 'rgba(0, 229, 255, 0.2)'
+                        fontSize: '0.8125rem',
+                        padding: '0.5rem 1rem',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        color: '#FFFFFF',
+                        border: '1px solid rgba(255, 255, 255, 0.12)'
                       }}
                     >
                       {tech}
@@ -184,52 +186,18 @@ export const CapabilitiesPage: React.FC = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Next page link */}
-              <div style={{ marginTop: '0.5rem' }}>
-                <Link to="/projects" className="btn btn-amber" style={{ padding: '0.75rem 1.4rem' }}>
-                  <span>EXPLORE SELECTED BUILDS</span>
-                  <ArrowRight size={15} />
-                </Link>
-              </div>
             </div>
-          </Card3DTilt>
 
-          {/* Right Column: 3D Kinetic Data Matrix */}
-          <Card3DTilt maxTilt={6} scale={1.01}>
-            <div
-              className="industrial-card"
-              style={{
-                height: '460px',
-                width: '100%',
-                overflow: 'hidden',
-                position: 'relative',
-                border: '1px solid rgba(255, 158, 44, 0.35)',
-                boxShadow: '0 0 30px rgba(255, 158, 44, 0.1)'
-              }}
-            >
-              <div style={{ position: 'absolute', top: 12, left: 14, zIndex: 10 }} className="tech-coordinate">
-                KINETIC MATRIX // 3D CUBES
-              </div>
-              <div style={{ position: 'absolute', top: 12, right: 14, zIndex: 10 }} className="tech-coordinate">
-                DISPERSION: REALTIME
-              </div>
-              <div style={{ position: 'absolute', bottom: 12, left: 14, zIndex: 10 }} className="tech-coordinate">
-                HOVER TO ROTATE
-              </div>
-              <Capabilities3DScene />
+            {/* Bottom Actions */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '1rem' }}>
+              <Link to="/projects" className="btn btn-accent">
+                <span>VIEW SELECTED BUILDS</span>
+                <ArrowRight size={16} />
+              </Link>
             </div>
-          </Card3DTilt>
-        </div>
+          </div>
+        </Card3DTilt>
       </div>
-
-      <style>{`
-        @media (min-width: 900px) {
-          .capabilities-view-grid {
-            grid-template-columns: 1.2fr 0.9fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };

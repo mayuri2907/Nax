@@ -37,32 +37,32 @@ export const Footer: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
               <div
                 style={{
-                  width: '28px',
-                  height: '28px',
+                  width: '32px',
+                  height: '32px',
                   borderRadius: 'var(--radius-xs)',
-                  background: 'linear-gradient(135deg, #2a2b2a 0%, #151514 100%)',
-                  border: '1px solid rgba(197, 154, 96, 0.3)',
+                  background: 'linear-gradient(135deg, #1a1e26 0%, #090a0d 100%)',
+                  border: '1px solid rgba(229, 169, 82, 0.35)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  color: 'var(--color-hunter-amber)'
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '0.8125rem',
+                  fontWeight: 800,
+                  color: 'var(--color-accent)'
                 }}
               >
-                NX
+                NC
               </div>
               <span
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontWeight: 700,
+                  fontWeight: 800,
                   fontSize: '1.15rem',
-                  color: 'var(--color-bone-white)',
-                  letterSpacing: '0.04em'
+                  color: 'var(--color-text-primary)',
+                  letterSpacing: '-0.01em'
                 }}
               >
-                NAX // VYROBYTE
+                NAVIN CHAUDHARY
               </span>
             </div>
 
@@ -123,11 +123,11 @@ export const Footer: React.FC = () => {
             gap: '1rem'
           }}
         >
-          <div className="tech-coordinate">
-            &copy; {CURRENT_YEAR} NAVIN (NAX) CHAUDHARY. ALL RIGHTS RESERVED.
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+            &copy; {CURRENT_YEAR} NAVIN CHAUDHARY. ALL RIGHTS RESERVED.
           </div>
-          <div className="tech-coordinate" style={{ color: 'var(--color-hunter-amber)' }}>
-            DISCIPLINED DIGITAL CRAFT &bull; VYROBYTE
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-accent)' }}>
+            DIGITAL EXPERIENCES &bull; VYROBYTE
           </div>
         </div>
       </div>

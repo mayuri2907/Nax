@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import { principlesData } from '../data/principles';
-import { Principles3DScene } from '../three/Principles3DScene';
 import { Card3DTilt } from '../components/Card3DTilt';
 
 export const PrinciplesPage: React.FC = () => {
@@ -19,123 +18,113 @@ export const PrinciplesPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Two-Column Grid: Principles List & 3D Prism Shards */}
+        {/* 3 Principles Grid */}
         <div
-          className="principles-view-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '3rem',
-            alignItems: 'center'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
+            gap: '2.5rem'
           }}
         >
-          {/* 3 Principles Cards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {principlesData.map((principle) => (
-              <Card3DTilt key={principle.number} maxTilt={5} scale={1.01}>
-                <div
-                  className="industrial-card"
-                  style={{
-                    padding: '1.75rem 2rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.75rem',
-                    border: '1px solid rgba(248, 250, 252, 0.1)'
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '1.75rem',
-                        fontWeight: 800,
-                        color: 'var(--color-cyan-glow)',
-                        lineHeight: 1
-                      }}
-                    >
-                      {principle.number}
-                    </span>
-                    <span className="tech-coordinate">PRIN.{principle.number} // COMMITTED</span>
+          {principlesData.map((principle) => (
+            <Card3DTilt key={principle.number} maxTilt={6} scale={1.02}>
+              <div
+                className="luxury-glass-card"
+                style={{
+                  padding: '2.75rem 2.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '2rem',
+                  height: '100%'
+                }}
+              >
+                <div>
+                  {/* Large Index */}
+                  <div
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '3.5rem',
+                      fontWeight: 800,
+                      color: 'var(--color-accent)',
+                      lineHeight: 1,
+                      marginBottom: '1rem',
+                      opacity: 0.9
+                    }}
+                  >
+                    {principle.number}
                   </div>
 
-                  <h3
+                  {/* Title */}
+                  <h2
                     style={{
-                      fontSize: '1.25rem',
-                      fontWeight: 700,
+                      fontSize: '1.45rem',
+                      fontWeight: 800,
                       letterSpacing: '-0.02em',
-                      color: 'var(--color-bone-white)'
+                      color: '#FFFFFF',
+                      marginBottom: '0.75rem'
                     }}
                   >
                     {principle.title}
-                  </h3>
+                  </h2>
 
+                  {/* Summary / Sub-rule */}
                   <p
                     style={{
-                      fontSize: '0.9375rem',
-                      color: 'var(--color-hunter-amber)',
+                      fontSize: '1rem',
+                      color: 'var(--color-accent)',
                       fontFamily: 'var(--font-mono)',
-                      fontWeight: 500
+                      fontWeight: 500,
+                      marginBottom: '1rem',
+                      lineHeight: 1.5
                     }}
                   >
                     &ldquo;{principle.summary}&rdquo;
                   </p>
 
+                  {/* Detailed Reasoning */}
                   <p
                     style={{
-                      fontSize: '0.875rem',
-                      color: 'var(--color-muted)',
-                      lineHeight: 1.6
+                      fontSize: '0.9375rem',
+                      color: 'var(--color-text-secondary)',
+                      lineHeight: 1.65
                     }}
                   >
                     {principle.detail}
                   </p>
                 </div>
-              </Card3DTilt>
-            ))}
 
-            <div style={{ marginTop: '0.5rem' }}>
-              <Link to="/contact" className="btn btn-amber" style={{ padding: '0.85rem 1.65rem' }}>
-                <span>PROCEED TO 06 / LET&rsquo;S BUILD</span>
-                <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
+                {/* Bottom Status */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingTop: '1.25rem',
+                    borderTop: '1px solid var(--color-border)'
+                  }}
+                >
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+                    CORE TENET &bull; 0{principle.number}
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--color-accent)', fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>
+                    <Check size={14} />
+                    <span>COMMITTED</span>
+                  </div>
+                </div>
+              </div>
+            </Card3DTilt>
+          ))}
+        </div>
 
-          {/* Right Column: 3D Crystalline Prism Array */}
-          <Card3DTilt maxTilt={6} scale={1.01}>
-            <div
-              className="industrial-card"
-              style={{
-                height: '480px',
-                width: '100%',
-                overflow: 'hidden',
-                position: 'relative',
-                border: '1px solid rgba(0, 229, 255, 0.35)',
-                boxShadow: '0 0 35px rgba(0, 229, 255, 0.15)'
-              }}
-            >
-              <div style={{ position: 'absolute', top: 12, left: 14, zIndex: 10 }} className="tech-coordinate">
-                PRISM ARRAY // 3D CRYSTALS
-              </div>
-              <div style={{ position: 'absolute', top: 12, right: 14, zIndex: 10 }} className="tech-coordinate">
-                3 SHARDS // TRI-AXIS
-              </div>
-              <div style={{ position: 'absolute', bottom: 12, left: 14, zIndex: 10 }} className="tech-coordinate">
-                ROTATION &bull; PARALLAX
-              </div>
-              <Principles3DScene />
-            </div>
-          </Card3DTilt>
+        {/* Forward Action */}
+        <div style={{ marginTop: '3.5rem', display: 'flex', justifyContent: 'center' }}>
+          <Link to="/contact" className="btn btn-accent" style={{ padding: '0.9rem 2rem' }}>
+            <span>PROCEED TO 06 / LET&rsquo;S BUILD</span>
+            <ArrowRight size={16} />
+          </Link>
         </div>
       </div>
-
-      <style>{`
-        @media (min-width: 900px) {
-          .principles-view-grid {
-            grid-template-columns: 1.15fr 0.85fr !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { IntroSequence } from './components/IntroSequence';
 import { CustomCursor } from './components/CustomCursor';
+import { Background3DCanvas } from './components/Background3DCanvas';
+import { PageTransition } from './components/PageTransition';
 import { Navigation } from './components/Navigation';
 import { PagePagination } from './components/PagePagination';
 import { Footer } from './components/Footer';
@@ -17,7 +19,7 @@ import { ContactPage } from './pages/ContactPage';
 export function App() {
   const [introFinished, setIntroFinished] = useState<boolean>(() => {
     try {
-      return sessionStorage.getItem('nax_intro_completed') === 'true';
+      return sessionStorage.getItem('navin_portfolio_intro_seen') === 'true';
     } catch {
       return false;
     }
@@ -28,7 +30,10 @@ export function App() {
       {/* High-Precision Mouse Tracer & Magnetic Particle Follower */}
       <CustomCursor />
 
-      {/* Cinematic Opening Sequence */}
+      {/* Global Interactive 3D Particle Wave Mesh Background */}
+      <Background3DCanvas />
+
+      {/* Cinematic Opening Sequence inspired by walterhydra.me */}
       {!introFinished && (
         <IntroSequence onComplete={() => setIntroFinished(true)} />
       )}
@@ -36,18 +41,20 @@ export function App() {
       {/* Sticky Top Navigation with Multi-Page Routing */}
       <Navigation />
 
-      {/* Multi-Page Route Viewport */}
+      {/* Multi-Page Route Viewport with 2-Second Cinematic Transition */}
       <main id="main-content" style={{ minHeight: 'calc(100vh - var(--header-height))', position: 'relative' }}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/capabilities" element={<CapabilitiesPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/vision" element={<VisionPage />} />
-          <Route path="/principles" element={<PrinciplesPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <PageTransition>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/capabilities" element={<CapabilitiesPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/vision" element={<VisionPage />} />
+            <Route path="/principles" element={<PrinciplesPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </PageTransition>
       </main>
 
       {/* Floating Bottom Quick-Jump Page Pagination Dock */}

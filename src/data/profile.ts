@@ -1,38 +1,38 @@
 import type { ProfileData } from '../types';
 
 export const profileData: ProfileData = {
-  fullName: 'Navin (Nax) Chaudhary',
-  nickname: 'Nax',
+  fullName: 'Navin Chaudhary',
+  nickname: 'Navin',
   founderTitle: 'Founder & Full-Stack Developer',
   startupName: 'VYROBYTE',
   heroHeadline: 'NOT HERE TO FOLLOW.\nHERE TO BUILD.',
   heroSecondary: 'BUILDING WITH VYROBYTE',
-  heroCopy: "I'm Navin Chaudhary, a founder and developer focused on building meaningful digital experiences, practical products, and technology that solves real problems.",
+  heroCopy: "I'm Navin Chaudhary, a founder and full-stack developer focused on building meaningful digital experiences, practical products, and engineered technology that solves real problems.",
   aboutStory: {
     sectionLabel: '01 / THE STORY',
     headline: 'Curiosity became code. Code became creation.',
     paragraphs: [
-      "I'm Navin Chaudhary, known as Nax. I enjoy turning ideas into useful digital experiences, exploring how technology works, and building solutions that solve real problems.",
-      'My focus is on thoughtful interfaces, reliable application architecture, and products that combine technical execution with a clear purpose.',
-      "With VYROBYTE, I'm beginning a new chapter focused on building technology and turning promising ideas into real products."
+      "I'm Navin Chaudhary. I enjoy turning ideas into useful digital experiences, exploring how complex distributed systems work, and engineering products that solve real-world problems.",
+      'My focus is on thoughtful user interfaces, scalable application architecture, and resilient backends that combine technical execution with clear, purposeful utility.',
+      "With VYROBYTE, I'm pioneering modern software tools and venture concepts built on disciplined engineering rather than superficial trends."
     ]
   },
   vyrobyteVision: {
     sectionLabel: '04 / THE VISION',
     headline: 'Building beyond the expected.',
-    mission: 'VYROBYTE is the beginning of a technology venture built around curiosity, practical problem-solving, and the ambition to turn ideas into useful digital products. The goal is simple: understand the problem, build thoughtfully, and create technology with a clear purpose.',
+    mission: 'VYROBYTE is an emerging technology venture built around curiosity, practical problem-solving, and the ambition to turn visionary ideas into resilient digital products. The goal is simple: understand the real problem, architect deliberately, and ship technology with lasting purpose.',
     focusPoints: [
-      {
-        title: 'Tactile Engineering',
-        desc: 'Building digital systems with the mechanical precision, responsiveness, and industrial solidity of physical hardware.'
-      },
-      {
-        title: 'Practical Utility',
-        desc: 'Developing tools, APIs, and platforms that address genuine workflows instead of chasing ephemeral industry trends.'
-      },
       {
         title: 'Architectural Resilience',
         desc: 'Prioritizing sound modular architecture, predictable state models, and scalable codebases from day one.'
+      },
+      {
+        title: 'Tactile Engineering',
+        desc: 'Building digital systems with mechanical responsiveness, fluid motion, and craftsmanship.'
+      },
+      {
+        title: 'Practical Utility',
+        desc: 'Developing tools, APIs, and platforms that remove friction for real workflows and human needs.'
       }
     ]
   }

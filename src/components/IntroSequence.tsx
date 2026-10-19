@@ -1,34 +1,40 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
-import { ArrowRight, SkipForward } from 'lucide-react';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface IntroSequenceProps {
   onComplete: () => void;
 }
 
-const STORAGE_KEY = 'nax_intro_completed';
+const STORAGE_KEY = 'navin_portfolio_intro_seen';
+
+const PHRASES = [
+  'NAVIN CHAUDHARY',
+  'FOUNDER & FULL-STACK DEVELOPER',
+  'ENGINEERING PRECISION',
+  'VYROBYTE'
+];
 
 export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const brandRef = useRef<HTMLDivElement | null>(null);
-  const nameRef = useRef<HTMLHeadingElement | null>(null);
-  const titleRef = useRef<HTMLParagraphElement | null>(null);
-  const quoteRef = useRef<HTMLQuoteElement | null>(null);
-  const ctaRef = useRef<HTMLDivElement | null>(null);
-  const controlsRef = useRef<HTMLDivElement | null>(null);
+  const textRef = useRef<HTMLHeadingElement | null>(null);
+  const progressLineRef = useRef<HTMLDivElement | null>(null);
+  const counterRef = useRef<HTMLSpanElement | null>(null);
+
+  const [counterValue, setCounterValue] = useState<number>(0);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState<number>(0);
+  const [isDismissed, setIsDismissed] = useState<boolean>(false);
 
   const reducedMotion = useReducedMotion();
-  const [isDismissing, setIsDismissing] = useState<boolean>(false);
 
-  const handleDismiss = useCallback(() => {
-    if (isDismissing) return;
-    setIsDismissing(true);
+  const handleFinish = useCallback(() => {
+    if (isDismissed) return;
+    setIsDismissed(true);
 
     try {
       sessionStorage.setItem(STORAGE_KEY, 'true');
     } catch {
-      // Storage unavailable or disabled
+      // Storage unavailable
     }
 
     if (reducedMotion || !containerRef.current) {
@@ -36,22 +42,21 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       return;
     }
 
+    // Walterhydra-style smooth vertical shutter slide-up reveal
     gsap.to(containerRef.current, {
-      opacity: 0,
-      scale: 1.02,
-      duration: 0.6,
-      ease: 'power2.inOut',
+      yPercent: -100,
+      duration: 0.95,
+      ease: 'power3.inOut',
       onComplete: () => {
         onComplete();
       }
     });
-  }, [isDismissing, onComplete, reducedMotion]);
+  }, [isDismissed, onComplete, reducedMotion]);
 
   useEffect(() => {
-    // If returning visitor has already seen intro in this session, skip automatically
+    // Check if seen previously in this session
     try {
-      const alreadySeen = sessionStorage.getItem(STORAGE_KEY);
-      if (alreadySeen === 'true') {
+      if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
         onComplete();
         return;
       }
@@ -59,43 +64,47 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       // ignore
     }
 
-    // If user prefers reduced motion, give prompt or fast path
     if (reducedMotion) {
-      // Allow them to enter immediately
+      onComplete();
       return;
     }
 
-    // GSAP Context to ensure StrictMode safety and cleanup
+    // GSAP Timeline simulating counter from 0 to 100 and phrase cycle
+    const counterObj = { value: 0 };
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        defaults: { ease: 'power3.out' }
+        onComplete: () => {
+          handleFinish();
+        }
       });
 
-      // Initial states
-      gsap.set([brandRef.current, nameRef.current, titleRef.current, quoteRef.current, ctaRef.current], {
-        opacity: 0,
-        y: 20
-      });
-      gsap.set(controlsRef.current, { opacity: 0 });
+      // Animate progress line & counter from 0 to 100 over ~2.4 seconds
+      tl.to(counterObj, {
+        value: 100,
+        duration: 2.3,
+        ease: 'power1.inOut',
+        onUpdate: () => {
+          const rounded = Math.round(counterObj.value);
+          setCounterValue(rounded);
+          if (progressLineRef.current) {
+            progressLineRef.current.style.width = `${rounded}%`;
+          }
 
-      // Step 1: Reveal controls immediately so skip is accessible from frame 0
-      tl.to(controlsRef.current, { opacity: 1, duration: 0.4 })
-        // Step 2: Brand wordmark
-        .to(brandRef.current, { opacity: 1, y: 0, duration: 0.7 }, '+=0.1')
-        // Step 3: Founder Name
-        .to(nameRef.current, { opacity: 1, y: 0, duration: 0.8 }, '-=0.3')
-        // Step 4: Title / Builder badge
-        .to(titleRef.current, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
-        // Step 5: Philosophy quote
-        .to(quoteRef.current, { opacity: 1, y: 0, duration: 0.7 }, '-=0.3')
-        // Step 6: Primary action
-        .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.6 }, '-=0.2');
+          // Cycle phrase based on progress
+          const phraseIdx = Math.min(
+            Math.floor((rounded / 100) * PHRASES.length),
+            PHRASES.length - 1
+          );
+          setCurrentPhraseIndex(phraseIdx);
+        }
+      });
     }, containerRef);
 
-    // Escape key listener for immediate skip
+    // Escape or Click to speed up / skip immediately
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        handleDismiss();
+        handleFinish();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -104,193 +113,133 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       ctx.revert();
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleDismiss, onComplete, reducedMotion]);
+  }, [handleFinish, onComplete, reducedMotion]);
+
+  // Format counter to 3 digits (e.g. "000", "042", "100")
+  const formattedCount = counterValue.toString().padStart(3, '0');
 
   return (
     <div
       ref={containerRef}
-      className="intro-overlay"
+      onClick={handleFinish}
       role="region"
-      aria-label="Cinematic Introduction"
+      aria-label="Cinematic Starting Sequence"
       style={{
         position: 'fixed',
         inset: 0,
         zIndex: 'var(--z-intro)' as unknown as number,
-        backgroundColor: '#10100F',
+        backgroundColor: '#090A0D',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '2rem',
-        backgroundImage: `
-          radial-gradient(circle at 50% 30%, rgba(197, 154, 96, 0.08) 0%, transparent 60%),
-          linear-gradient(180deg, rgba(8, 8, 8, 0.7) 0%, rgba(16, 16, 15, 1) 100%)
-        `
+        justifyContent: 'space-between',
+        padding: 'clamp(2rem, 5vw, 4rem)',
+        cursor: 'pointer',
+        userSelect: 'none',
+        overflow: 'hidden'
       }}
     >
-      {/* Top Controls: Immediate Skip */}
+      {/* Top Header Tag */}
       <div
-        ref={controlsRef}
         style={{
-          position: 'absolute',
-          top: '1.75rem',
-          right: '2rem',
           display: 'flex',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          gap: '1rem'
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.8125rem',
+          letterSpacing: '0.14em',
+          color: 'var(--color-text-secondary)',
+          textTransform: 'uppercase'
         }}
       >
-        <button
-          onClick={handleDismiss}
-          className="btn btn-ghost"
-          style={{
-            fontSize: '0.75rem',
-            padding: '0.45rem 0.9rem',
-            border: '1px solid rgba(242, 238, 230, 0.12)',
-            borderRadius: 'var(--radius-xs)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.45rem',
-            color: 'var(--color-muted)'
-          }}
-          aria-label="Skip introduction and proceed to portfolio"
-        >
-          <span>SKIP INTRO [ESC]</span>
-          <SkipForward size={14} />
-        </button>
+        <span>NAVIN CHAUDHARY &bull; PORTFOLIO</span>
+        <span>VYROBYTE ARCHITECTURE</span>
       </div>
 
-      {/* Atmospheric Industrial Grid Background Lines */}
+      {/* Center Dynamic Wordmark Display & Progress Bar */}
       <div
         style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(to right, rgba(242, 238, 230, 0.02) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(242, 238, 230, 0.02) 1px, transparent 1px)
-          `,
-          backgroundSize: '80px 80px',
-          pointerEvents: 'none'
-        }}
-      />
-
-      {/* Content Container */}
-      <div
-        style={{
-          maxWidth: '680px',
+          width: '100%',
+          maxWidth: '850px',
+          margin: '0 auto',
           textAlign: 'center',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '1.5rem',
-          position: 'relative',
-          zIndex: 2
+          gap: '1.75rem'
         }}
       >
-        {/* Step 1: VYROBYTE PRESENTS */}
-        <div
-          ref={brandRef}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.8125rem',
-            letterSpacing: '0.24em',
-            textTransform: 'uppercase',
-            color: 'var(--color-hunter-amber)'
-          }}
-        >
-          <span style={{ width: '16px', height: '1px', background: 'var(--color-hunter-amber)' }} />
-          <span>VYROBYTE PRESENTS</span>
-          <span style={{ width: '16px', height: '1px', background: 'var(--color-hunter-amber)' }} />
-        </div>
-
-        {/* Step 2: FOUNDER NAME */}
+        {/* Animated Phrase */}
         <h1
-          ref={nameRef}
+          ref={textRef}
           style={{
-            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-            fontWeight: 700,
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(2.25rem, 5.5vw, 4.5rem)',
+            fontWeight: 800,
             letterSpacing: '-0.03em',
-            color: 'var(--color-bone-white)',
-            lineHeight: 1.05
+            color: 'var(--color-text-primary)',
+            lineHeight: 1.1,
+            minHeight: '1.2em',
+            transition: 'opacity 0.2s ease'
           }}
         >
-          NAVIN &ldquo;NAX&rdquo; CHAUDHARY
+          {PHRASES[currentPhraseIndex]}
         </h1>
 
-        {/* Step 3: FOUNDER. DEVELOPER. BUILDER. */}
-        <p
-          ref={titleRef}
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'clamp(0.875rem, 1.8vw, 1.0625rem)',
-            letterSpacing: '0.18em',
-            color: 'var(--color-metal-light)',
-            textTransform: 'uppercase',
-            fontWeight: 500
-          }}
-        >
-          FOUNDER &bull; DEVELOPER &bull; BUILDER
-        </p>
-
-        {/* Step 4: PHILOSOPHY QUOTE */}
-        <blockquote
-          ref={quoteRef}
-          style={{
-            fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-            color: 'var(--color-muted)',
-            fontStyle: 'italic',
-            lineHeight: 1.6,
-            maxWidth: '520px',
-            margin: '0.5rem 0 1rem 0',
-            borderLeft: '2px solid rgba(197, 154, 96, 0.4)',
-            paddingLeft: '1.25rem',
-            textAlign: 'left'
-          }}
-        >
-          &ldquo;I believe great technology starts with understanding real problems.&rdquo;
-        </blockquote>
-
-        {/* Step 5: ENTER MY WORLD ACTION */}
-        <div ref={ctaRef} style={{ marginTop: '0.5rem' }}>
-          <button
-            onClick={handleDismiss}
-            className="btn btn-amber"
+        {/* Minimalist Progress Track with Flanking Counters */}
+        <div style={{ width: '100%', maxWidth: '640px' }}>
+          <div
             style={{
-              padding: '1.05rem 2.5rem',
-              fontSize: '0.9375rem',
-              letterSpacing: '0.12em',
-              borderRadius: 'var(--radius-xs)',
-              boxShadow: '0 0 30px rgba(197, 154, 96, 0.3)'
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.875rem',
+              color: 'var(--color-accent)',
+              marginBottom: '0.65rem',
+              fontWeight: 600
             }}
-            aria-label="Enter portfolio experience"
           >
-            <span>ENTER MY WORLD</span>
-            <ArrowRight size={18} />
-          </button>
+            <span ref={counterRef}>{formattedCount}</span>
+            <span style={{ color: 'var(--color-text-muted)' }}>100</span>
+          </div>
+
+          {/* Progress Bar Line */}
+          <div
+            style={{
+              width: '100%',
+              height: '2px',
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              borderRadius: '2px',
+              overflow: 'hidden'
+            }}
+          >
+            <div
+              ref={progressLineRef}
+              style={{
+                height: '100%',
+                width: '0%',
+                backgroundColor: 'var(--color-accent)',
+                boxShadow: '0 0 14px rgba(229, 169, 82, 0.9)'
+              }}
+            />
+          </div>
         </div>
       </div>
 
-      {/* Subtle bottom coordinate footer */}
+      {/* Bottom Prompt Control */}
       <div
         style={{
-          position: 'absolute',
-          bottom: '1.75rem',
           display: 'flex',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          gap: '2rem',
           fontFamily: 'var(--font-mono)',
-          fontSize: '0.6875rem',
-          color: 'var(--color-metal-light)',
-          letterSpacing: '0.14em',
+          fontSize: '0.75rem',
+          letterSpacing: '0.12em',
+          color: 'var(--color-text-muted)',
           textTransform: 'uppercase'
         }}
       >
-        <span>SYS.STATUS: ONLINE</span>
-        <span>ENGINE: THREE.JS // REACT 19</span>
-        <span>VYROBYTE ARCHITECTURE</span>
+        <span>[ CLICK ANYWHERE TO ENTER ]</span>
+        <span>[ ESC TO SKIP ]</span>
       </div>
     </div>
   );

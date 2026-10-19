@@ -88,44 +88,44 @@ export const Navigation: React.FC = () => {
               height: '38px',
               borderRadius: 'var(--radius-xs)',
               background: 'linear-gradient(135deg, #161d26 0%, #080b10 100%)',
-              border: '1px solid rgba(0, 229, 255, 0.4)',
-              boxShadow: '0 0 15px rgba(0, 229, 255, 0.2)',
+              border: '1px solid rgba(229, 169, 82, 0.4)',
+              boxShadow: '0 0 15px rgba(229, 169, 82, 0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontFamily: 'var(--font-mono)',
-              fontWeight: 700,
-              fontSize: '0.875rem',
-              color: 'var(--color-bone-white)',
+              fontFamily: 'var(--font-display)',
+              fontWeight: 800,
+              fontSize: '0.9375rem',
+              color: 'var(--color-text-primary)',
               letterSpacing: '0.05em'
             }}
           >
-            <span style={{ color: 'var(--color-cyan-glow)' }}>N</span>
-            <span style={{ color: 'var(--color-hunter-amber)' }}>X</span>
+            <span style={{ color: 'var(--color-accent)' }}>N</span>
+            <span style={{ color: '#ffffff' }}>C</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span
               style={{
                 fontFamily: 'var(--font-display)',
-                fontWeight: 700,
+                fontWeight: 800,
                 fontSize: '1.05rem',
-                letterSpacing: '0.04em',
-                color: 'var(--color-bone-white)'
+                letterSpacing: '-0.01em',
+                color: 'var(--color-text-primary)'
               }}
             >
-              NAX
+              NAVIN CHAUDHARY
             </span>
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.625rem',
-                color: 'var(--color-hunter-amber)',
+                color: 'var(--color-accent)',
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase'
               }}
             >
-              VYROBYTE FOUNDER
+              FOUNDER &bull; VYROBYTE
             </span>
           </div>
         </Link>
@@ -279,21 +279,21 @@ export const Navigation: React.FC = () => {
             <Link
               to="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="btn btn-amber"
+              className="btn btn-accent"
               style={{ width: '100%', padding: '0.875rem' }}
             >
-              <span>DISCUSS A BUILD WITH NAX</span>
+              <span>DISCUSS A BUILD WITH NAVIN</span>
               <ArrowUpRight size={16} />
             </Link>
             <div
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.75rem',
-                color: 'var(--color-metal-light)',
+                color: 'var(--color-text-muted)',
                 textAlign: 'center'
               }}
             >
-              NAX // VYROBYTE &bull; FOUNDER SUITE
+              NAVIN CHAUDHARY // VYROBYTE &bull; FOUNDER PORTFOLIO
             </div>
           </div>
         </div>
