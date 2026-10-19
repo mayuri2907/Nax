@@ -8,8 +8,8 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
   const [displayedChildren, setDisplayedChildren] = useState(children);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const overlayRef = useRef<HTMLDivElement | null>(null);
-  const titleRef = useRef<HTMLDivElement | null>(null);
-  const lineRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const starsRef = useRef<HTMLDivElement | null>(null);
   const prevPathRef = useRef<string>(location.pathname);
 
   useEffect(() => {
@@ -36,15 +36,17 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
       }
     });
 
+    const starElements = starsRef.current?.querySelectorAll('.transition-star-unit') || [];
+
     // Reset initial states
     gsap.set(overlay, { display: 'flex', opacity: 1, yPercent: 100 });
-    gsap.set(titleRef.current, { opacity: 0, y: 20 });
-    gsap.set(lineRef.current, { scaleX: 0 });
+    gsap.set(contentRef.current, { opacity: 0, y: 20 });
+    gsap.set(starElements, { scale: 0, opacity: 0 });
 
-    // Step 1: Shutter sweeps UP (0.5s)
+    // Step 1: Shutter sweeps UP (0.45s)
     tl.to(overlay, {
       yPercent: 0,
-      duration: 0.5,
+      duration: 0.45,
       ease: 'power3.inOut'
     })
       // Step 2: Swap the actual page content in the background while covered
@@ -52,33 +54,37 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
         setDisplayedChildren(children);
         window.scrollTo(0, 0);
       })
-      // Step 3: Reveal page title & progress line (0.6s)
-      .to(titleRef.current, {
+      // Step 3: Reveal page title & small stars (0.6s)
+      .to(contentRef.current, {
         opacity: 1,
         y: 0,
-        duration: 0.4,
+        duration: 0.35,
         ease: 'power2.out'
       })
       .to(
-        lineRef.current,
+        starElements,
         {
-          scaleX: 1,
-          duration: 0.6,
-          ease: 'power1.inOut'
+          scale: 1,
+          opacity: 1,
+          duration: 0.35,
+          stagger: 0.08,
+          ease: 'back.out(2)'
         },
-        '-=0.2'
+        '-=0.15'
       )
-      // Step 4: Fade out text (0.3s)
-      .to(titleRef.current, {
+      // Subtle pause for smooth cinematic feel (0.35s)
+      .to({}, { duration: 0.35 })
+      // Step 4: Fade out text & stars (0.25s)
+      .to(contentRef.current, {
         opacity: 0,
-        y: -15,
-        duration: 0.3,
+        y: -12,
+        duration: 0.25,
         ease: 'power2.in'
       })
-      // Step 5: Shutter sweeps away UP to unveil new page (0.6s)
+      // Step 5: Shutter sweeps away UP to unveil new page (0.55s)
       .to(overlay, {
         yPercent: -100,
-        duration: 0.6,
+        duration: 0.55,
         ease: 'power3.inOut'
       })
       .set(overlay, { display: 'none' });
@@ -109,20 +115,22 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
         }}
       >
         <div
-          ref={titleRef}
+          ref={contentRef}
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '1rem',
-            textAlign: 'center'
+            gap: '1.15rem',
+            textAlign: 'center',
+            padding: '1.5rem'
           }}
         >
+          {/* Section Code Label */}
           <div
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.8125rem',
-              letterSpacing: '0.2em',
+              fontSize: '0.75rem',
+              letterSpacing: '0.22em',
               color: 'var(--color-accent)',
               textTransform: 'uppercase'
             }}
@@ -130,28 +138,49 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
             NAVIN CHAUDHARY // {activePage.code}
           </div>
 
+          {/* Section Full Title with Outfit font */}
           <h2
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2rem, 4vw, 3.25rem)',
-              fontWeight: 800,
+              fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+              fontWeight: 700,
               color: '#FFFFFF',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
+              margin: 0
             }}
           >
             {activePage.fullTitle}
           </h2>
 
+          {/* Small Stars / Dots Indicator replacing the line */}
           <div
-            ref={lineRef}
+            ref={starsRef}
+            aria-hidden="true"
             style={{
-              width: '160px',
-              height: '2px',
-              backgroundColor: 'var(--color-accent)',
-              boxShadow: '0 0 10px rgba(229, 169, 82, 0.8)',
-              transformOrigin: 'left center'
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.85rem',
+              marginTop: '0.35rem'
             }}
-          />
+          >
+            {[0, 1, 2, 3, 4].map((idx) => (
+              <span
+                key={idx}
+                className="transition-star-unit"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--color-accent)',
+                  fontSize: idx === 2 ? '0.95rem' : '0.75rem',
+                  textShadow: '0 0 10px rgba(229, 169, 82, 0.9)'
+                }}
+              >
+                ✦
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 

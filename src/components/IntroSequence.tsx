@@ -8,21 +8,26 @@ interface IntroSequenceProps {
 
 const STORAGE_KEY = 'navin_portfolio_intro_seen';
 
-const PHRASES = [
-  'NAVIN CHAUDHARY',
-  'FOUNDER & FULL-STACK DEVELOPER',
-  'ENGINEERING PRECISION',
-  'VYROBYTE'
+interface PhraseSegment {
+  text: string;
+  startPct: number;
+  typeEndPct: number;
+  endPct: number;
+}
+
+const PHRASE_SEGMENTS: PhraseSegment[] = [
+  { text: 'NAVIN CHAUDHARY', startPct: 0, typeEndPct: 22, endPct: 25 },
+  { text: 'FOUNDER & FULL-STACK DEVELOPER', startPct: 25, typeEndPct: 52, endPct: 56 },
+  { text: 'ENGINEERING PRECISION', startPct: 56, typeEndPct: 78, endPct: 82 },
+  { text: 'VYROBYTE', startPct: 82, typeEndPct: 96, endPct: 100 }
 ];
 
 export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const textRef = useRef<HTMLHeadingElement | null>(null);
   const progressLineRef = useRef<HTMLDivElement | null>(null);
-  const counterRef = useRef<HTMLSpanElement | null>(null);
 
   const [counterValue, setCounterValue] = useState<number>(0);
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState<number>(0);
+  const [displayedText, setDisplayedText] = useState<string>('');
   const [isDismissed, setIsDismissed] = useState<boolean>(false);
 
   const reducedMotion = useReducedMotion();
@@ -42,10 +47,10 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       return;
     }
 
-    // Walterhydra-style smooth vertical shutter slide-up reveal
+    // Walterhydra-style smooth vertical shutter slide-up unveil
     gsap.to(containerRef.current, {
       yPercent: -100,
-      duration: 0.95,
+      duration: 0.85,
       ease: 'power3.inOut',
       onComplete: () => {
         onComplete();
@@ -69,7 +74,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       return;
     }
 
-    // GSAP Timeline simulating counter from 0 to 100 and phrase cycle
+    // GSAP Timeline running for ~3.8 seconds (3 to 5 second duration)
     const counterObj = { value: 0 };
 
     const ctx = gsap.context(() => {
@@ -79,24 +84,40 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
         }
       });
 
-      // Animate progress line & counter from 0 to 100 over ~2.4 seconds
       tl.to(counterObj, {
         value: 100,
-        duration: 2.3,
-        ease: 'power1.inOut',
+        duration: 3.8, // 3.8 seconds total duration
+        ease: 'none',
         onUpdate: () => {
-          const rounded = Math.round(counterObj.value);
-          setCounterValue(rounded);
+          const currentVal = Math.min(Math.round(counterObj.value), 100);
+          setCounterValue(currentVal);
+
           if (progressLineRef.current) {
-            progressLineRef.current.style.width = `${rounded}%`;
+            progressLineRef.current.style.width = `${currentVal}%`;
           }
 
-          // Cycle phrase based on progress
-          const phraseIdx = Math.min(
-            Math.floor((rounded / 100) * PHRASES.length),
-            PHRASES.length - 1
-          );
-          setCurrentPhraseIndex(phraseIdx);
+          // Compute character-by-character text reveal based on current progress percentage
+          const activeSegment =
+            PHRASE_SEGMENTS.find(
+              (seg) => currentVal >= seg.startPct && currentVal <= seg.endPct
+            ) || PHRASE_SEGMENTS[PHRASE_SEGMENTS.length - 1];
+
+          if (currentVal >= activeSegment.typeEndPct) {
+            // Fully typed out for this segment
+            setDisplayedText(activeSegment.text);
+          } else {
+            // Typing in character by character
+            const segmentProgress = Math.max(
+              0,
+              (currentVal - activeSegment.startPct) /
+                (activeSegment.typeEndPct - activeSegment.startPct)
+            );
+            const charsToShow = Math.max(
+              1,
+              Math.floor(segmentProgress * activeSegment.text.length)
+            );
+            setDisplayedText(activeSegment.text.slice(0, charsToShow));
+          }
         }
       });
     }, containerRef);
@@ -145,7 +166,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontFamily: 'var(--font-mono)',
-          fontSize: '0.8125rem',
+          fontSize: '0.75rem',
           letterSpacing: '0.14em',
           color: 'var(--color-text-secondary)',
           textTransform: 'uppercase'
@@ -155,61 +176,75 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
         <span>VYROBYTE ARCHITECTURE</span>
       </div>
 
-      {/* Center Dynamic Wordmark Display & Progress Bar */}
+      {/* Center Dynamic Wordmark Display & Progress Track */}
       <div
         style={{
           width: '100%',
-          maxWidth: '850px',
+          maxWidth: '780px',
           margin: '0 auto',
           textAlign: 'center',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '1.75rem'
+          gap: '2.25rem'
         }}
       >
-        {/* Animated Phrase */}
-        <h1
-          ref={textRef}
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2.25rem, 5.5vw, 4.5rem)',
-            fontWeight: 800,
-            letterSpacing: '-0.03em',
-            color: 'var(--color-text-primary)',
-            lineHeight: 1.1,
-            minHeight: '1.2em',
-            transition: 'opacity 0.2s ease'
-          }}
-        >
-          {PHRASES[currentPhraseIndex]}
-        </h1>
+        {/* Character-by-character typed phrase with smaller, refined modern font */}
+        <div style={{ minHeight: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <h1
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(1.25rem, 2.8vw, 1.95rem)',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              color: '#FFFFFF',
+              lineHeight: 1.2,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem'
+            }}
+          >
+            <span>{displayedText}</span>
+            <span
+              style={{
+                display: 'inline-block',
+                width: '3px',
+                height: '1.2em',
+                backgroundColor: 'var(--color-accent)',
+                boxShadow: '0 0 10px rgba(229, 169, 82, 0.9)',
+                animation: 'starTwinkle 0.8s infinite'
+              }}
+            />
+          </h1>
+        </div>
 
         {/* Minimalist Progress Track with Flanking Counters */}
-        <div style={{ width: '100%', maxWidth: '640px' }}>
+        <div style={{ width: '100%', maxWidth: '540px' }}>
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.875rem',
+              fontSize: '0.8125rem',
               color: 'var(--color-accent)',
-              marginBottom: '0.65rem',
-              fontWeight: 600
+              marginBottom: '0.75rem',
+              fontWeight: 600,
+              letterSpacing: '0.08em'
             }}
           >
-            <span ref={counterRef}>{formattedCount}</span>
+            <span>{formattedCount}</span>
             <span style={{ color: 'var(--color-text-muted)' }}>100</span>
           </div>
 
-          {/* Progress Bar Line */}
+          {/* Sleek Progress Track */}
           <div
             style={{
               width: '100%',
               height: '2px',
               backgroundColor: 'rgba(255, 255, 255, 0.08)',
               borderRadius: '2px',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              position: 'relative'
             }}
           >
             <div
@@ -218,7 +253,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
                 height: '100%',
                 width: '0%',
                 backgroundColor: 'var(--color-accent)',
-                boxShadow: '0 0 14px rgba(229, 169, 82, 0.9)'
+                boxShadow: '0 0 12px rgba(229, 169, 82, 0.9)'
               }}
             />
           </div>
@@ -232,8 +267,8 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontFamily: 'var(--font-mono)',
-          fontSize: '0.75rem',
-          letterSpacing: '0.12em',
+          fontSize: '0.7rem',
+          letterSpacing: '0.14em',
           color: 'var(--color-text-muted)',
           textTransform: 'uppercase'
         }}

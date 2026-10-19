@@ -107,9 +107,9 @@ export const PagePagination: React.FC = () => {
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.6875rem',
                 fontWeight: isActive ? 700 : 500,
-                color: isActive ? 'var(--color-black)' : 'var(--color-muted)',
-                backgroundColor: isActive ? 'var(--color-cyan-glow)' : 'rgba(255, 255, 255, 0.05)',
-                boxShadow: isActive ? '0 0 12px rgba(0, 229, 255, 0.8)' : 'none',
+                color: isActive ? 'var(--color-black)' : 'var(--color-text-secondary)',
+                backgroundColor: isActive ? 'var(--color-accent)' : 'rgba(255, 255, 255, 0.05)',
+                boxShadow: isActive ? '0 0 14px rgba(229, 169, 82, 0.8)' : 'none',
                 transition: 'all var(--transition-fast)'
               }}
               title={p.label}
@@ -125,7 +125,7 @@ export const PagePagination: React.FC = () => {
       {nextPage ? (
         <Link
           to={nextPage.path}
-          className="btn btn-cyan"
+          className="btn btn-accent"
           style={{
             padding: '0.45rem 0.85rem',
             fontSize: '0.75rem',

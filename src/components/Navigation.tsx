@@ -17,11 +17,6 @@ export const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll to top on route change
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [location.pathname]);
-
   // Lock body scroll and handle Escape key when mobile menu is open
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -47,18 +42,10 @@ export const Navigation: React.FC = () => {
     <header
       className={`site-navigation ${isScrolled ? 'site-navigation-scrolled' : ''}`}
       style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 'var(--header-height)',
-        zIndex: 'var(--z-header)' as unknown as number,
-        transition: 'all var(--transition-normal)',
-        backgroundColor: isScrolled ? 'rgba(8, 11, 16, 0.94)' : 'rgba(8, 11, 16, 0.65)',
-        backdropFilter: 'blur(20px)',
+        backgroundColor: isScrolled ? 'rgba(9, 10, 13, 0.94)' : 'rgba(9, 10, 13, 0.72)',
         borderBottom: isScrolled
-          ? '1px solid rgba(0, 229, 255, 0.2)'
-          : '1px solid rgba(248, 250, 252, 0.08)'
+          ? '1px solid rgba(229, 169, 82, 0.25)'
+          : '1px solid rgba(255, 255, 255, 0.07)'
       }}
     >
       <div
@@ -67,7 +54,8 @@ export const Navigation: React.FC = () => {
           height: '100%',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          gap: '1.5rem'
         }}
       >
         {/* Brand Mark Left */}
@@ -78,26 +66,25 @@ export const Navigation: React.FC = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.875rem'
+            gap: '0.85rem'
           }}
         >
-          {/* Cyber monogram emblem */}
+          {/* Monogram emblem */}
           <div
             style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: 'var(--radius-xs)',
-              background: 'linear-gradient(135deg, #161d26 0%, #080b10 100%)',
-              border: '1px solid rgba(229, 169, 82, 0.4)',
-              boxShadow: '0 0 15px rgba(229, 169, 82, 0.2)',
+              width: '40px',
+              height: '40px',
+              borderRadius: 'var(--radius-sm)',
+              background: 'linear-gradient(135deg, #1e2330 0%, #0d1017 100%)',
+              border: '1px solid rgba(229, 169, 82, 0.45)',
+              boxShadow: '0 0 16px rgba(229, 169, 82, 0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontFamily: 'var(--font-display)',
               fontWeight: 800,
-              fontSize: '0.9375rem',
-              color: 'var(--color-text-primary)',
-              letterSpacing: '0.05em'
+              fontSize: '0.95rem',
+              letterSpacing: '0.04em'
             }}
           >
             <span style={{ color: 'var(--color-accent)' }}>N</span>
@@ -111,7 +98,7 @@ export const Navigation: React.FC = () => {
                 fontWeight: 800,
                 fontSize: '1.05rem',
                 letterSpacing: '-0.01em',
-                color: 'var(--color-text-primary)'
+                color: '#ffffff'
               }}
             >
               NAVIN CHAUDHARY
@@ -130,59 +117,41 @@ export const Navigation: React.FC = () => {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav
-          className="desktop-nav"
-          aria-label="Main Navigation"
-          style={{
-            display: 'none',
-            alignItems: 'center',
-            gap: '1.5rem'
-          }}
-        >
+        {/* Desktop Navigation Capsule */}
+        <nav className="desktop-nav" aria-label="Main Navigation">
           {PAGES_CONFIG.map((p) => {
             const isActive = location.pathname === p.path;
             return (
               <NavLink
                 key={p.path}
                 to={p.path}
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.8125rem',
-                  letterSpacing: '0.06em',
-                  color: isActive ? 'var(--color-cyan-glow)' : 'var(--color-muted)',
-                  transition: 'color var(--transition-fast)',
-                  position: 'relative',
-                  padding: '0.45rem 0'
-                }}
+                className={`desktop-nav-link ${isActive ? 'active' : ''}`}
               >
-                <span>{p.label}</span>
                 {isActive && (
                   <span
                     style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: '2px',
-                      background: 'var(--gradient-cyber)',
-                      boxShadow: '0 0 10px rgba(0, 229, 255, 0.9)'
+                      width: '5px',
+                      height: '5px',
+                      borderRadius: '50%',
+                      backgroundColor: 'var(--color-accent)',
+                      boxShadow: '0 0 6px rgba(229, 169, 82, 0.9)'
                     }}
                   />
                 )}
+                <span>{p.label}</span>
               </NavLink>
             );
           })}
         </nav>
 
         {/* Desktop Right CTA */}
-        <div className="desktop-cta" style={{ display: 'none', alignItems: 'center', gap: '1rem' }}>
+        <div className="desktop-cta">
           <Link
             to="/contact"
-            className="btn btn-cyan"
-            style={{ padding: '0.6rem 1.25rem', fontSize: '0.8125rem' }}
+            className="btn btn-accent"
+            style={{ padding: '0.6rem 1.35rem', fontSize: '0.825rem' }}
           >
-            <span>LET&rsquo;S BUILD</span>
+            <span>LET&rsquo;S TALK</span>
             <ArrowUpRight size={15} />
           </Link>
         </div>
@@ -193,17 +162,6 @@ export const Navigation: React.FC = () => {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-expanded={mobileMenuOpen}
           aria-label={mobileMenuOpen ? 'Close navigation drawer' : 'Open navigation drawer'}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '42px',
-            height: '42px',
-            borderRadius: 'var(--radius-xs)',
-            background: 'rgba(22, 29, 38, 0.6)',
-            border: '1px solid rgba(0, 229, 255, 0.3)',
-            color: 'var(--color-bone-white)'
-          }}
         >
           {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -223,12 +181,13 @@ export const Navigation: React.FC = () => {
             right: 0,
             bottom: 0,
             height: 'calc(100vh - var(--header-height))',
-            backgroundColor: 'rgba(8, 11, 16, 0.98)',
+            backgroundColor: 'rgba(9, 10, 13, 0.98)',
             backdropFilter: 'blur(25px)',
+            WebkitBackdropFilter: 'blur(25px)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '2rem 1.5rem',
+            padding: '2.5rem 1.75rem',
             zIndex: 99
           }}
         >
@@ -249,13 +208,13 @@ export const Navigation: React.FC = () => {
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.35rem',
-                    fontWeight: 600,
-                    color: isActive ? 'var(--color-cyan-glow)' : 'var(--color-bone-white)',
+                    fontWeight: 700,
+                    color: isActive ? 'var(--color-accent)' : '#ffffff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '0.5rem 0',
-                    borderBottom: '1px solid rgba(248, 250, 252, 0.08)'
+                    padding: '0.65rem 0',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
                   }}
                 >
                   <span>{p.fullTitle}</span>
@@ -265,8 +224,8 @@ export const Navigation: React.FC = () => {
                         width: '8px',
                         height: '8px',
                         borderRadius: '50%',
-                        backgroundColor: 'var(--color-cyan-glow)',
-                        boxShadow: '0 0 10px rgba(0, 229, 255, 0.9)'
+                        backgroundColor: 'var(--color-accent)',
+                        boxShadow: '0 0 10px rgba(229, 169, 82, 0.9)'
                       }}
                     />
                   )}
@@ -280,9 +239,9 @@ export const Navigation: React.FC = () => {
               to="/contact"
               onClick={() => setMobileMenuOpen(false)}
               className="btn btn-accent"
-              style={{ width: '100%', padding: '0.875rem' }}
+              style={{ width: '100%', padding: '0.95rem' }}
             >
-              <span>DISCUSS A BUILD WITH NAVIN</span>
+              <span>CONNECT WITH NAVIN</span>
               <ArrowUpRight size={16} />
             </Link>
             <div
@@ -293,25 +252,11 @@ export const Navigation: React.FC = () => {
                 textAlign: 'center'
               }}
             >
-              NAVIN CHAUDHARY // VYROBYTE &bull; FOUNDER PORTFOLIO
+              NAVIN CHAUDHARY // FOUNDER &bull; VYROBYTE
             </div>
           </div>
         </div>
       )}
-
-      <style>{`
-        @media (min-width: 960px) {
-          .desktop-nav {
-            display: flex !important;
-          }
-          .desktop-cta {
-            display: flex !important;
-          }
-          .mobile-menu-toggle {
-            display: none !important;
-          }
-        }
-      `}</style>
     </header>
   );
 };

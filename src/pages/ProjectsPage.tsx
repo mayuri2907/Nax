@@ -132,12 +132,12 @@ export const ProjectsPage: React.FC = () => {
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '0.6875rem',
-                      letterSpacing: '0.1em',
+                      letterSpacing: '0.08em',
                       color: 'var(--color-text-muted)',
                       textTransform: 'uppercase'
                     }}
                   >
-                    LAB SPEC // INTERNAL
+                    FOUNDER BUILD
                   </span>
                 </div>
               </article>
