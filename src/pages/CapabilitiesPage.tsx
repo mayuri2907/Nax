@@ -128,7 +128,7 @@ export const CapabilitiesPage: React.FC = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
                 gap: '2rem',
                 paddingTop: '1.5rem',
                 borderTop: '1px solid var(--color-border)'

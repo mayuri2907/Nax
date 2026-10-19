@@ -25,7 +25,7 @@ export const ProjectsPage: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
             gap: '2rem'
           }}
         >
@@ -37,7 +37,7 @@ export const ProjectsPage: React.FC = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   height: '100%',
-                  padding: '2.25rem',
+                  padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
                   gap: '1.5rem'
                 }}
               >
@@ -178,7 +178,7 @@ export const ProjectsPage: React.FC = () => {
                 maxWidth: '680px',
                 maxHeight: '90vh',
                 overflowY: 'auto',
-                padding: '2.5rem',
+                padding: 'clamp(1.25rem, 4vw, 2.5rem)',
                 border: '1px solid rgba(229, 169, 82, 0.45)',
                 boxShadow: '0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(229, 169, 82, 0.2)'
               }}

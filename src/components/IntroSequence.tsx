@@ -182,7 +182,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: 'clamp(2rem, 5vw, 4rem)',
+        padding: 'clamp(1.25rem, 4vw, 4rem)',
         cursor: 'pointer',
         userSelect: 'none',
         overflow: 'hidden'
@@ -192,6 +192,8 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       <div
         style={{
           display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.5rem',
           justifyContent: 'space-between',
           alignItems: 'center',
           fontFamily: 'var(--font-mono)',
@@ -312,6 +314,8 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       <div
         style={{
           display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.5rem',
           justifyContent: 'space-between',
           alignItems: 'center',
           fontFamily: 'var(--font-mono)',

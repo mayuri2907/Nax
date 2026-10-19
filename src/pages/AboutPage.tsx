@@ -22,7 +22,7 @@ export const AboutPage: React.FC = () => {
           className="about-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '3rem',
             alignItems: 'start'
           }}
@@ -46,7 +46,7 @@ export const AboutPage: React.FC = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
                 gap: '1.25rem',
                 marginTop: '1rem',
                 paddingTop: '1.5rem',
@@ -105,7 +105,7 @@ export const AboutPage: React.FC = () => {
               <div
                 className="luxury-glass-card"
                 style={{
-                  padding: '2.5rem',
+                  padding: 'clamp(1.5rem, 4vw, 2.5rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1.75rem'

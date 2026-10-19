@@ -102,7 +102,7 @@ export const Footer: React.FC = () => {
             <div>
               <button
                 onClick={scrollToTop}
-                className="btn btn-secondary"
+                className="btn btn-glass"
                 style={{ padding: '0.65rem 1rem', fontSize: '0.75rem' }}
                 aria-label="Scroll back to top of page"
               >

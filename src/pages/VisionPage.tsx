@@ -43,7 +43,7 @@ export const VisionPage: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '2rem'
           }}
         >
@@ -52,7 +52,7 @@ export const VisionPage: React.FC = () => {
               <div
                 className="luxury-glass-card"
                 style={{
-                  padding: '2.5rem 2rem',
+                  padding: 'clamp(1.75rem, 3.5vw, 2.5rem) clamp(1.25rem, 3vw, 2rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1.25rem',

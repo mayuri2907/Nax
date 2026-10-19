@@ -51,6 +51,7 @@ export const Navigation: React.FC = () => {
     <header
       className={`site-navigation ${isScrolled ? 'site-navigation-scrolled' : ''}`}
       style={{
+        zIndex: mobileMenuOpen ? 350 : undefined,
         backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.94)' : 'rgba(248, 250, 252, 0.88)',
         borderBottom: isScrolled
           ? '1px solid rgba(15, 23, 42, 0.09)'
@@ -86,8 +87,8 @@ export const Navigation: React.FC = () => {
           {/* Monogram emblem */}
           <div
             style={{
-              width: '40px',
-              height: '40px',
+              width: 'clamp(34px, 4vw, 40px)',
+              height: 'clamp(34px, 4vw, 40px)',
               borderRadius: 'var(--radius-sm)',
               background: 'linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%)',
               border: '1px solid rgba(180, 83, 9, 0.35)',
@@ -98,7 +99,8 @@ export const Navigation: React.FC = () => {
               fontFamily: 'var(--font-display)',
               fontWeight: 800,
               fontSize: '0.95rem',
-              letterSpacing: '0.04em'
+              letterSpacing: '0.04em',
+              flexShrink: 0
             }}
           >
             <span style={{ color: 'var(--color-accent)' }}>N</span>
@@ -110,10 +112,11 @@ export const Navigation: React.FC = () => {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 800,
-                fontSize: '1.05rem',
+                fontSize: 'clamp(0.875rem, 3.5vw, 1.05rem)',
                 letterSpacing: '-0.01em',
                 color: 'var(--color-text-primary)',
-                lineHeight: 1.2
+                lineHeight: 1.2,
+                whiteSpace: 'nowrap'
               }}
             >
               NAVIN CHAUDHARY
@@ -236,8 +239,10 @@ export const Navigation: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '2.5rem 1.75rem',
-            zIndex: 99
+            padding: '2rem 1.75rem 3rem 1.75rem',
+            zIndex: 350,
+            overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch'
           }}
         >
           <nav

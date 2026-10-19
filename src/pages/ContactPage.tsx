@@ -85,7 +85,7 @@ export const ContactPage: React.FC = () => {
           className="contact-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '3rem',
             alignItems: 'start'
           }}
@@ -96,7 +96,7 @@ export const ContactPage: React.FC = () => {
               <div
                 className="luxury-glass-card"
                 style={{
-                  padding: '2.5rem',
+                  padding: 'clamp(1.5rem, 3.5vw, 2.5rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1.5rem',
@@ -115,10 +115,12 @@ export const ContactPage: React.FC = () => {
                   <div
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      fontSize: 'clamp(1.15rem, 1.8vw, 1.4rem)',
+                      fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)',
                       fontWeight: 600,
                       color: 'var(--color-text-primary)',
-                      marginTop: '0.25rem'
+                      marginTop: '0.25rem',
+                      overflowWrap: 'anywhere',
+                      wordBreak: 'break-word'
                     }}
                   >
                     {contactConfig.email}
@@ -193,7 +195,7 @@ export const ContactPage: React.FC = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
                 gap: '1rem',
                 padding: '1.25rem',
                 borderRadius: 'var(--radius-sm)',
@@ -224,7 +226,7 @@ export const ContactPage: React.FC = () => {
             <div
               className="luxury-glass-card"
               style={{
-                padding: '2.5rem',
+                padding: 'clamp(1.5rem, 3.5vw, 2.5rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1.5rem',

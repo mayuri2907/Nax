@@ -170,6 +170,7 @@ export const CustomCursor: React.FC = () => {
       <canvas
         ref={canvasRef}
         aria-hidden="true"
+        className="custom-cursor-element"
         style={{
           position: 'fixed',
           top: 0,
@@ -185,6 +186,7 @@ export const CustomCursor: React.FC = () => {
       <div
         ref={dotRef}
         aria-hidden="true"
+        className="custom-cursor-element"
         style={{
           position: 'fixed',
           top: -4,
@@ -204,6 +206,7 @@ export const CustomCursor: React.FC = () => {
       <div
         ref={ringRef}
         aria-hidden="true"
+        className="custom-cursor-element"
         style={{
           position: 'fixed',
           top: -18,

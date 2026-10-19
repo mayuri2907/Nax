@@ -22,7 +22,7 @@ export const PrinciplesPage: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '2.5rem'
           }}
         >
@@ -31,7 +31,7 @@ export const PrinciplesPage: React.FC = () => {
               <div
                 className="luxury-glass-card"
                 style={{
-                  padding: '2.75rem 2.25rem',
+                  padding: 'clamp(1.75rem, 3.5vw, 2.75rem) clamp(1.25rem, 3vw, 2.25rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',

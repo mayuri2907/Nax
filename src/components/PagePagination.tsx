@@ -89,8 +89,8 @@ export const PagePagination: React.FC = () => {
         </span>
       )}
 
-      {/* Numerical page jumps */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', padding: '0 0.35rem' }}>
+      {/* Numerical page jumps (Desktop & Tablet) */}
+      <div className="pagination-desktop-numbers" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', padding: '0 0.35rem' }}>
         {PAGES_CONFIG.map((p, idx) => {
           const isActive = idx === activeIndex;
           return (
@@ -121,6 +121,38 @@ export const PagePagination: React.FC = () => {
         })}
       </div>
 
+      {/* Compact Page Indicator for Mobile (< 520px) */}
+      <div
+        className="pagination-mobile-indicator"
+        style={{
+          display: 'none',
+          alignItems: 'center',
+          gap: '0.35rem',
+          padding: '0 0.5rem',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.75rem',
+          whiteSpace: 'nowrap'
+        }}
+      >
+        <span style={{ color: 'var(--color-accent)', fontWeight: 700 }}>
+          {PAGES_CONFIG[activeIndex].code}
+        </span>
+        <span style={{ color: 'var(--color-text-muted)' }}>/</span>
+        <span style={{ color: 'var(--color-text-muted)' }}>
+          0{PAGES_CONFIG.length}
+        </span>
+        <span
+          style={{
+            marginLeft: '0.25rem',
+            color: 'var(--color-text-primary)',
+            fontWeight: 700,
+            letterSpacing: '0.04em'
+          }}
+        >
+          {PAGES_CONFIG[activeIndex].label.toUpperCase()}
+        </span>
+      </div>
+
       {/* Next button */}
       {nextPage ? (
         <Link
@@ -143,7 +175,7 @@ export const PagePagination: React.FC = () => {
             padding: '0.45rem 0.85rem',
             fontSize: '0.75rem',
             opacity: 0.3,
-            color: 'var(--color-metal-light)',
+            color: 'var(--color-text-muted)',
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.35rem'
@@ -158,6 +190,14 @@ export const PagePagination: React.FC = () => {
         @media (max-width: 600px) {
           .pagination-text-desktop {
             display: none !important;
+          }
+        }
+        @media (max-width: 520px) {
+          .pagination-desktop-numbers {
+            display: none !important;
+          }
+          .pagination-mobile-indicator {
+            display: inline-flex !important;
           }
         }
       `}</style>
