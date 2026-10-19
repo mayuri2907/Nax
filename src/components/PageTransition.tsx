@@ -5,86 +5,108 @@ import { PAGES_CONFIG } from '../data/pagesConfig';
 
 export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+  const childrenRef = useRef(children);
+  childrenRef.current = children;
+
   const [displayedChildren, setDisplayedChildren] = useState(children);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const starsRef = useRef<HTMLDivElement | null>(null);
-  const prevPathRef = useRef<string>(location.pathname);
+
+  const prevPathRef = useRef<string | null>(null);
+
+  const activePage = PAGES_CONFIG.find((p) => p.path === location.pathname) || PAGES_CONFIG[0];
+  const sectionCode = `NAVIN CHAUDHARY // ${activePage.code}`;
 
   useEffect(() => {
-    // Only animate if path actually changed
-    if (prevPathRef.current === location.pathname) {
-      setDisplayedChildren(children);
-      return;
-    }
-
-    prevPathRef.current = location.pathname;
-    setIsTransitioning(true);
-
     const overlay = overlayRef.current;
     if (!overlay) {
-      setDisplayedChildren(children);
-      setIsTransitioning(false);
+      setDisplayedChildren(childrenRef.current);
       return;
     }
 
-    // GSAP 2-Second Transition Timeline
+    const starElements = starsRef.current?.querySelectorAll('.transition-star-unit') || [];
+    const charElements = contentRef.current?.querySelectorAll('.transition-char-title') || [];
+    const codeElements = contentRef.current?.querySelectorAll('.transition-char-code') || [];
+
+    const isInitial = prevPathRef.current === null;
+    prevPathRef.current = location.pathname;
+
+    setIsTransitioning(true);
+
+    // Initial setup: If on initial refresh, curtain starts at center (yPercent: 0); if route change, start at yPercent: 100
+    gsap.set(overlay, { display: 'flex', opacity: 1, yPercent: isInitial ? 0 : 100 });
+    gsap.set(starElements, { scale: 0, opacity: 0 });
+    gsap.set(charElements, { scale: 0, opacity: 0, y: 16 });
+    gsap.set(codeElements, { opacity: 0, y: 8 });
+
     const tl = gsap.timeline({
       onComplete: () => {
         setIsTransitioning(false);
       }
     });
 
-    const starElements = starsRef.current?.querySelectorAll('.transition-star-unit') || [];
-
-    // Reset initial states
-    gsap.set(overlay, { display: 'flex', opacity: 1, yPercent: 100 });
-    gsap.set(contentRef.current, { opacity: 0, y: 20 });
-    gsap.set(starElements, { scale: 0, opacity: 0 });
-
-    // Step 1: Shutter sweeps UP (0.45s)
-    tl.to(overlay, {
-      yPercent: 0,
-      duration: 0.45,
-      ease: 'power3.inOut'
-    })
-      // Step 2: Swap the actual page content in the background while covered
-      .add(() => {
-        setDisplayedChildren(children);
+    if (!isInitial) {
+      // Step 1: Shutter sweeps UP (0.4s)
+      tl.to(overlay, {
+        yPercent: 0,
+        duration: 0.4,
+        ease: 'power3.inOut'
+      }).add(() => {
+        setDisplayedChildren(childrenRef.current);
         window.scrollTo(0, 0);
-      })
-      // Step 3: Reveal page title & small stars (0.6s)
-      .to(contentRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.35,
-        ease: 'power2.out'
-      })
+      });
+    } else {
+      setDisplayedChildren(childrenRef.current);
+    }
+
+    // Step 2: Code chars pop in
+    tl.to(codeElements, {
+      opacity: 1,
+      y: 0,
+      duration: 0.22,
+      stagger: 0.012,
+      ease: 'power2.out'
+    }, isInitial ? '+=0.08' : '-=0.05')
+      // Step 3: Title characters pop and scale in like stars!
+      .to(
+        charElements,
+        {
+          scale: 1,
+          opacity: 1,
+          y: 0,
+          duration: 0.35,
+          stagger: 0.02,
+          ease: 'back.out(2)'
+        },
+        '-=0.15'
+      )
+      // Step 4: Small stars pop and twinkle in
       .to(
         starElements,
         {
           scale: 1,
           opacity: 1,
-          duration: 0.35,
-          stagger: 0.08,
-          ease: 'back.out(2)'
+          duration: 0.3,
+          stagger: 0.07,
+          ease: 'back.out(2.5)'
         },
-        '-=0.15'
+        '-=0.2'
       )
-      // Subtle pause for smooth cinematic feel (0.35s)
-      .to({}, { duration: 0.35 })
-      // Step 4: Fade out text & stars (0.25s)
-      .to(contentRef.current, {
+      // Hold for user to appreciate the starry reveal
+      .to({}, { duration: 0.3 })
+      // Step 5: Fade out text & stars
+      .to([charElements, codeElements, starElements], {
         opacity: 0,
-        y: -12,
-        duration: 0.25,
+        scale: 0.85,
+        duration: 0.22,
         ease: 'power2.in'
       })
-      // Step 5: Shutter sweeps away UP to unveil new page (0.55s)
+      // Step 6: Shutter sweeps away UP to unveil the page (0.5s)
       .to(overlay, {
         yPercent: -100,
-        duration: 0.55,
+        duration: 0.5,
         ease: 'power3.inOut'
       })
       .set(overlay, { display: 'none' });
@@ -92,20 +114,18 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
     return () => {
       tl.kill();
     };
-  }, [location.pathname, children]);
-
-  const activePage = PAGES_CONFIG.find((p) => p.path === location.pathname) || PAGES_CONFIG[0];
+  }, [location.pathname]);
 
   return (
     <>
-      {/* 2-Second Cinematic Transition Shutter Overlay */}
+      {/* 2-Second Cinematic Transition Shutter Overlay (Light Theme Porcelain) */}
       <div
         ref={overlayRef}
         aria-hidden={!isTransitioning}
         style={{
           position: 'fixed',
           inset: 0,
-          backgroundColor: '#090A0D',
+          backgroundColor: '#F8FAFC',
           zIndex: 'var(--z-transition)' as unknown as number,
           display: 'none',
           flexDirection: 'column',
@@ -120,39 +140,65 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '1.15rem',
+            gap: '1.25rem',
             textAlign: 'center',
-            padding: '1.5rem'
+            padding: '1.5rem',
+            userSelect: 'none'
           }}
         >
-          {/* Section Code Label */}
+          {/* Section Code Label - Animated Character by Character */}
           <div
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.75rem',
               letterSpacing: '0.22em',
               color: 'var(--color-accent)',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
             }}
           >
-            NAVIN CHAUDHARY // {activePage.code}
+            {sectionCode.split('').map((char, i) => (
+              <span
+                key={i}
+                className="transition-char-code"
+                style={{ display: 'inline-block' }}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
           </div>
 
-          {/* Section Full Title with Outfit font */}
+          {/* Section Full Title - Animated Character by Character like Stars */}
           <h2
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
-              fontWeight: 700,
-              color: '#FFFFFF',
+              fontSize: 'clamp(1.75rem, 3.5vw, 2.65rem)',
+              fontWeight: 800,
+              color: '#0F172A',
               letterSpacing: '-0.02em',
-              margin: 0
+              margin: 0,
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center'
             }}
           >
-            {activePage.fullTitle}
+            {activePage.fullTitle.split('').map((char, i) => (
+              <span
+                key={i}
+                className="transition-char-title"
+                style={{
+                  display: 'inline-block',
+                  transformOrigin: 'center center'
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
           </h2>
 
-          {/* Small Stars / Dots Indicator replacing the line */}
+          {/* Small Stars / Dots Indicator */}
           <div
             ref={starsRef}
             aria-hidden="true"
@@ -161,7 +207,7 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.85rem',
-              marginTop: '0.35rem'
+              marginTop: '0.45rem'
             }}
           >
             {[0, 1, 2, 3, 4].map((idx) => (
@@ -173,8 +219,9 @@ export const PageTransition: React.FC<{ children: React.ReactNode }> = ({ childr
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: 'var(--color-accent)',
-                  fontSize: idx === 2 ? '0.95rem' : '0.75rem',
-                  textShadow: '0 0 10px rgba(229, 169, 82, 0.9)'
+                  fontSize: idx === 2 ? '1rem' : '0.8rem',
+                  filter: 'drop-shadow(0 0 6px rgba(180, 83, 9, 0.45))',
+                  transformOrigin: 'center center'
                 }}
               >
                 ✦

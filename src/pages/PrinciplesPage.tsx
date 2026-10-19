@@ -61,7 +61,7 @@ export const PrinciplesPage: React.FC = () => {
                       fontSize: '1.45rem',
                       fontWeight: 800,
                       letterSpacing: '-0.02em',
-                      color: '#FFFFFF',
+                      color: 'var(--color-text-primary)',
                       marginBottom: '0.75rem'
                     }}
                   >

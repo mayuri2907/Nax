@@ -99,7 +99,7 @@ export const HomePage: React.FC = () => {
                 <div style={{ color: 'var(--color-accent)', marginBottom: '0.75rem' }}>
                   <Cpu size={24} />
                 </div>
-                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.35rem' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.35rem' }}>
                   Resilient Architecture
                 </h3>
                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
@@ -113,7 +113,7 @@ export const HomePage: React.FC = () => {
                 <div style={{ color: 'var(--color-azure)', marginBottom: '0.75rem' }}>
                   <Sparkles size={24} />
                 </div>
-                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.35rem' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.35rem' }}>
                   Kinetic Digital Craft
                 </h3>
                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>
@@ -127,7 +127,7 @@ export const HomePage: React.FC = () => {
                 <div style={{ color: 'var(--color-accent)', marginBottom: '0.75rem' }}>
                   <Layers size={24} />
                 </div>
-                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.35rem' }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.35rem' }}>
                   Venture Building
                 </h3>
                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: 1.6 }}>

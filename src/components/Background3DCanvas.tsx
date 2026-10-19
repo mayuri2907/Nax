@@ -48,13 +48,13 @@ export const Background3DCanvas: React.FC = () => {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
 
-    // Custom shader material for luminous particles
+    // Refined slate & warm amber particles for light theme
     const material = new THREE.PointsMaterial({
-      color: 0xe5a952,
-      size: 0.12,
+      color: 0x475569, // Sophisticated slate grey on porcelain
+      size: 0.14,
       transparent: true,
       opacity: 0.45,
-      blending: THREE.AdditiveBlending
+      blending: THREE.NormalBlending
     });
 
     const particles = new THREE.Points(geometry, material);
@@ -64,7 +64,7 @@ export const Background3DCanvas: React.FC = () => {
 
     // Ambient floating 3D geometric polyhedral rings in far background
     const ringGeo = new THREE.TorusGeometry(8, 0.04, 16, 120);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.15 });
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0x0284c7, transparent: true, opacity: 0.25 });
     const bgRing = new THREE.Mesh(ringGeo, ringMat);
     bgRing.position.set(10, 2, -15);
     bgRing.rotation.x = Math.PI / 3;

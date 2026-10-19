@@ -78,7 +78,7 @@ export const VisionPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+                  <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--color-text-primary)', letterSpacing: '-0.02em' }}>
                     {point.title}
                   </h2>
                   <p style={{ fontSize: '0.9375rem', color: 'var(--color-text-secondary)', marginTop: '0.5rem', lineHeight: 1.65 }}>
@@ -121,7 +121,7 @@ export const VisionPage: React.FC = () => {
                 <Sparkles size={14} />
                 <span>STARTUP VENTURE &bull; VYROBYTE</span>
               </div>
-              <h2 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+              <h2 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 800, color: 'var(--color-text-primary)', letterSpacing: '-0.02em' }}>
                 Building tomorrow&rsquo;s systems with deliberate intent.
               </h2>
               <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', marginTop: '0.5rem', lineHeight: 1.65 }}>

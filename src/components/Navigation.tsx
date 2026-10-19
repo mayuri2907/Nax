@@ -75,9 +75,9 @@ export const Navigation: React.FC = () => {
               width: '40px',
               height: '40px',
               borderRadius: 'var(--radius-sm)',
-              background: 'linear-gradient(135deg, #1e2330 0%, #0d1017 100%)',
-              border: '1px solid rgba(229, 169, 82, 0.45)',
-              boxShadow: '0 0 16px rgba(229, 169, 82, 0.2)',
+              background: 'linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%)',
+              border: '1px solid rgba(180, 83, 9, 0.35)',
+              boxShadow: '0 2px 10px rgba(180, 83, 9, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -88,7 +88,7 @@ export const Navigation: React.FC = () => {
             }}
           >
             <span style={{ color: 'var(--color-accent)' }}>N</span>
-            <span style={{ color: '#ffffff' }}>C</span>
+            <span style={{ color: 'var(--color-text-primary)' }}>C</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -98,7 +98,7 @@ export const Navigation: React.FC = () => {
                 fontWeight: 800,
                 fontSize: '1.05rem',
                 letterSpacing: '-0.01em',
-                color: '#ffffff'
+                color: 'var(--color-text-primary)'
               }}
             >
               NAVIN CHAUDHARY
@@ -181,7 +181,7 @@ export const Navigation: React.FC = () => {
             right: 0,
             bottom: 0,
             height: 'calc(100vh - var(--header-height))',
-            backgroundColor: 'rgba(9, 10, 13, 0.98)',
+            backgroundColor: 'rgba(255, 255, 255, 0.98)',
             backdropFilter: 'blur(25px)',
             WebkitBackdropFilter: 'blur(25px)',
             display: 'flex',
@@ -209,12 +209,12 @@ export const Navigation: React.FC = () => {
                     fontFamily: 'var(--font-display)',
                     fontSize: '1.35rem',
                     fontWeight: 700,
-                    color: isActive ? 'var(--color-accent)' : '#ffffff',
+                    color: isActive ? 'var(--color-accent)' : 'var(--color-text-primary)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     padding: '0.65rem 0',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+                    borderBottom: '1px solid rgba(15, 23, 42, 0.08)'
                   }}
                 >
                   <span>{p.fullTitle}</span>

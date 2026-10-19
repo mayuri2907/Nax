@@ -149,7 +149,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
         position: 'fixed',
         inset: 0,
         zIndex: 'var(--z-intro)' as unknown as number,
-        backgroundColor: '#090A0D',
+        backgroundColor: '#F8FAFC',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -197,7 +197,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
               fontSize: 'clamp(1.25rem, 2.8vw, 1.95rem)',
               fontWeight: 700,
               letterSpacing: '0.08em',
-              color: '#FFFFFF',
+              color: '#0F172A',
               lineHeight: 1.2,
               display: 'inline-flex',
               alignItems: 'center',
@@ -211,7 +211,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
                 width: '3px',
                 height: '1.2em',
                 backgroundColor: 'var(--color-accent)',
-                boxShadow: '0 0 10px rgba(229, 169, 82, 0.9)',
+                boxShadow: '0 0 8px rgba(180, 83, 9, 0.6)',
                 animation: 'starTwinkle 0.8s infinite'
               }}
             />
@@ -241,7 +241,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
             style={{
               width: '100%',
               height: '2px',
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'rgba(15, 23, 42, 0.08)',
               borderRadius: '2px',
               overflow: 'hidden',
               position: 'relative'
@@ -253,7 +253,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
                 height: '100%',
                 width: '0%',
                 backgroundColor: 'var(--color-accent)',
-                boxShadow: '0 0 12px rgba(229, 169, 82, 0.9)'
+                boxShadow: '0 0 10px rgba(180, 83, 9, 0.7)'
               }}
             />
           </div>

@@ -117,7 +117,7 @@ export const ContactPage: React.FC = () => {
                       fontFamily: 'var(--font-mono)',
                       fontSize: 'clamp(1.15rem, 1.8vw, 1.4rem)',
                       fontWeight: 600,
-                      color: '#FFFFFF',
+                      color: 'var(--color-text-primary)',
                       marginTop: '0.25rem'
                     }}
                   >
@@ -175,7 +175,7 @@ export const ContactPage: React.FC = () => {
                           {social.platform === 'GitHub' && <GithubIcon size={20} color="var(--color-azure)" />}
                           {social.platform === 'LinkedIn' && <LinkedinIcon size={20} color="var(--color-azure)" />}
                           {social.platform === 'Startup' && <Globe size={20} color="var(--color-accent)" />}
-                          <span style={{ fontSize: '0.9375rem', fontWeight: 600, color: '#FFFFFF' }}>
+                          <span style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>
                             {social.label}
                           </span>
                         </div>
@@ -205,7 +205,7 @@ export const ContactPage: React.FC = () => {
                 <MapPin size={18} color="var(--color-accent)" />
                 <div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6875rem', color: 'var(--color-text-muted)' }}>LOCATION</div>
-                  <div style={{ fontSize: '0.875rem', color: '#FFFFFF', fontWeight: 500 }}>{contactConfig.location}</div>
+                  <div style={{ fontSize: '0.875rem', color: 'var(--color-text-primary)', fontWeight: 500 }}>{contactConfig.location}</div>
                 </div>
               </div>
 
@@ -213,7 +213,7 @@ export const ContactPage: React.FC = () => {
                 <Clock size={18} color="var(--color-azure)" />
                 <div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6875rem', color: 'var(--color-text-muted)' }}>TIMEZONE</div>
-                  <div style={{ fontSize: '0.875rem', color: '#FFFFFF', fontWeight: 500 }}>{contactConfig.timezone}</div>
+                  <div style={{ fontSize: '0.875rem', color: 'var(--color-text-primary)', fontWeight: 500 }}>{contactConfig.timezone}</div>
                 </div>
               </div>
             </div>
@@ -235,7 +235,7 @@ export const ContactPage: React.FC = () => {
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--color-accent)', letterSpacing: '0.12em' }}>
                   INQUIRY COMPOSER &bull; DIRECT TRANSMISSION
                 </span>
-                <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#FFFFFF', marginTop: '0.35rem', letterSpacing: '-0.02em' }}>
+                <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--color-text-primary)', marginTop: '0.35rem', letterSpacing: '-0.02em' }}>
                   Draft a Project Specification
                 </h2>
                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginTop: '0.25rem' }}>
@@ -260,10 +260,10 @@ export const ContactPage: React.FC = () => {
                     style={{
                       width: '100%',
                       padding: '0.85rem 1rem',
-                      backgroundColor: 'rgba(5, 6, 8, 0.85)',
-                      border: formErrors.name ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.12)',
+                      backgroundColor: '#ffffff',
+                      border: formErrors.name ? '1px solid #ef4444' : '1px solid rgba(15, 23, 42, 0.14)',
                       borderRadius: 'var(--radius-xs)',
-                      color: '#FFFFFF',
+                      color: 'var(--color-text-primary)',
                       fontFamily: 'inherit',
                       fontSize: '0.9rem'
                     }}
@@ -291,10 +291,10 @@ export const ContactPage: React.FC = () => {
                     style={{
                       width: '100%',
                       padding: '0.85rem 1rem',
-                      backgroundColor: 'rgba(5, 6, 8, 0.85)',
-                      border: formErrors.email ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.12)',
+                      backgroundColor: '#ffffff',
+                      border: formErrors.email ? '1px solid #ef4444' : '1px solid rgba(15, 23, 42, 0.14)',
                       borderRadius: 'var(--radius-xs)',
-                      color: '#FFFFFF',
+                      color: 'var(--color-text-primary)',
                       fontFamily: 'inherit',
                       fontSize: '0.9rem'
                     }}
@@ -322,10 +322,10 @@ export const ContactPage: React.FC = () => {
                     style={{
                       width: '100%',
                       padding: '0.85rem 1rem',
-                      backgroundColor: 'rgba(5, 6, 8, 0.85)',
-                      border: formErrors.message ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.12)',
+                      backgroundColor: '#ffffff',
+                      border: formErrors.message ? '1px solid #ef4444' : '1px solid rgba(15, 23, 42, 0.14)',
                       borderRadius: 'var(--radius-xs)',
-                      color: '#FFFFFF',
+                      color: 'var(--color-text-primary)',
                       fontFamily: 'inherit',
                       fontSize: '0.9rem',
                       resize: 'vertical'

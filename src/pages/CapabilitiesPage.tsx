@@ -109,7 +109,7 @@ export const CapabilitiesPage: React.FC = () => {
                   {getCategoryIcon(activeCategory.id)}
                 </div>
                 <div>
-                  <h2 style={{ fontSize: '1.65rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+                  <h2 style={{ fontSize: '1.65rem', fontWeight: 800, color: 'var(--color-text-primary)', letterSpacing: '-0.02em' }}>
                     {activeCategory.title}
                   </h2>
                   <p style={{ fontSize: '0.9375rem', color: 'var(--color-text-secondary)', marginTop: '0.2rem' }}>
@@ -176,9 +176,9 @@ export const CapabilitiesPage: React.FC = () => {
                       style={{
                         fontSize: '0.8125rem',
                         padding: '0.5rem 1rem',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        color: '#FFFFFF',
-                        border: '1px solid rgba(255, 255, 255, 0.12)'
+                        background: 'rgba(15, 23, 42, 0.04)',
+                        color: 'var(--color-text-primary)',
+                        border: '1px solid rgba(15, 23, 42, 0.08)'
                       }}
                     >
                       {tech}

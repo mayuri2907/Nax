@@ -59,7 +59,7 @@ export const ProjectsPage: React.FC = () => {
                       style={{
                         fontSize: '1.5rem',
                         fontWeight: 800,
-                        color: '#FFFFFF',
+                        color: 'var(--color-text-primary)',
                         marginTop: '0.35rem',
                         letterSpacing: '-0.02em'
                       }}
@@ -192,7 +192,7 @@ export const ProjectsPage: React.FC = () => {
                     style={{
                       fontSize: '2rem',
                       fontWeight: 800,
-                      color: '#FFFFFF',
+                      color: 'var(--color-text-primary)',
                       marginTop: '0.5rem'
                     }}
                   >
@@ -205,7 +205,7 @@ export const ProjectsPage: React.FC = () => {
                 <button
                   onClick={() => setActiveModalProject(null)}
                   className="btn btn-ghost"
-                  style={{ padding: '0.5rem', color: '#FFFFFF' }}
+                  style={{ padding: '0.5rem', color: 'var(--color-text-primary)' }}
                   aria-label="Close project specifications modal"
                 >
                   <X size={22} />
@@ -260,7 +260,7 @@ export const ProjectsPage: React.FC = () => {
                   </h4>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                     {activeModalProject.technologies.map((t) => (
-                      <span key={t} className="badge" style={{ color: '#FFFFFF', padding: '0.45rem 0.85rem' }}>
+                      <span key={t} className="badge" style={{ color: 'var(--color-text-primary)', padding: '0.45rem 0.85rem' }}>
                         {t}
                       </span>
                     ))}

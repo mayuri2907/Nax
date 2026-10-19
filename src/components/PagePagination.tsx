@@ -47,11 +47,11 @@ export const PagePagination: React.FC = () => {
         alignItems: 'center',
         gap: '0.65rem',
         padding: '0.5rem 0.85rem',
-        backgroundColor: 'rgba(10, 14, 20, 0.85)',
+        backgroundColor: 'rgba(255, 255, 255, 0.92)',
         backdropFilter: 'blur(16px)',
-        border: '1px solid rgba(248, 250, 252, 0.12)',
+        border: '1px solid rgba(15, 23, 42, 0.1)',
         borderRadius: 'var(--radius-full)',
-        boxShadow: '0 12px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 229, 255, 0.1)',
+        boxShadow: '0 8px 30px rgba(15, 23, 42, 0.08)',
         maxWidth: '92vw',
         overflowX: 'auto'
       }}
@@ -60,7 +60,7 @@ export const PagePagination: React.FC = () => {
       {prevPage ? (
         <Link
           to={prevPage.path}
-          className="btn btn-secondary"
+          className="btn btn-glass"
           style={{
             padding: '0.45rem 0.85rem',
             fontSize: '0.75rem',
@@ -77,8 +77,8 @@ export const PagePagination: React.FC = () => {
           style={{
             padding: '0.45rem 0.85rem',
             fontSize: '0.75rem',
-            opacity: 0.3,
-            color: 'var(--color-metal-light)',
+            opacity: 0.35,
+            color: 'var(--color-text-muted)',
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.35rem'
@@ -107,9 +107,9 @@ export const PagePagination: React.FC = () => {
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.6875rem',
                 fontWeight: isActive ? 700 : 500,
-                color: isActive ? 'var(--color-black)' : 'var(--color-text-secondary)',
-                backgroundColor: isActive ? 'var(--color-accent)' : 'rgba(255, 255, 255, 0.05)',
-                boxShadow: isActive ? '0 0 14px rgba(229, 169, 82, 0.8)' : 'none',
+                color: isActive ? '#ffffff' : 'var(--color-text-secondary)',
+                backgroundColor: isActive ? 'var(--color-accent)' : 'rgba(15, 23, 42, 0.04)',
+                boxShadow: isActive ? '0 2px 8px rgba(180, 83, 9, 0.4)' : 'none',
                 transition: 'all var(--transition-fast)'
               }}
               title={p.label}

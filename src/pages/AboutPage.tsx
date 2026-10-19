@@ -56,7 +56,7 @@ export const AboutPage: React.FC = () => {
               <Card3DTilt maxTilt={6} scale={1.02}>
                 <div className="luxury-glass-card" style={{ padding: '1.5rem', height: '100%' }}>
                   <Cpu size={22} color="var(--color-accent)" style={{ marginBottom: '0.65rem' }} />
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                     Engineering First
                   </h3>
                   <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginTop: '0.35rem', lineHeight: 1.55 }}>
@@ -68,7 +68,7 @@ export const AboutPage: React.FC = () => {
               <Card3DTilt maxTilt={6} scale={1.02}>
                 <div className="luxury-glass-card" style={{ padding: '1.5rem', height: '100%' }}>
                   <ShieldCheck size={22} color="var(--color-azure)" style={{ marginBottom: '0.65rem' }} />
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                     Tactile Precision
                   </h3>
                   <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginTop: '0.35rem', lineHeight: 1.55 }}>
@@ -80,7 +80,7 @@ export const AboutPage: React.FC = () => {
               <Card3DTilt maxTilt={6} scale={1.02}>
                 <div className="luxury-glass-card" style={{ padding: '1.5rem', height: '100%' }}>
                   <Zap size={22} color="var(--color-accent)" style={{ marginBottom: '0.65rem' }} />
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#FFFFFF' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                     Practical Purpose
                   </h3>
                   <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginTop: '0.35rem', lineHeight: 1.55 }}>
@@ -133,7 +133,7 @@ export const AboutPage: React.FC = () => {
                     NC
                   </div>
                   <div>
-                    <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+                    <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--color-text-primary)', letterSpacing: '-0.02em' }}>
                       Navin Chaudhary
                     </h2>
                     <p style={{ fontSize: '0.8125rem', color: 'var(--color-accent)', fontFamily: 'var(--font-mono)' }}>
@@ -162,7 +162,7 @@ export const AboutPage: React.FC = () => {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
                     <span style={{ color: 'var(--color-text-muted)' }}>NAME</span>
-                    <span style={{ color: '#FFFFFF', fontWeight: 600 }}>Navin Chaudhary</span>
+                    <span style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>Navin Chaudhary</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
                     <span style={{ color: 'var(--color-text-muted)' }}>STARTUP</span>
@@ -174,7 +174,7 @@ export const AboutPage: React.FC = () => {
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ color: 'var(--color-text-muted)' }}>STATUS</span>
-                    <span style={{ color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <span style={{ color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                       <UserCheck size={14} color="var(--color-accent)" />
                       Active Building
                     </span>

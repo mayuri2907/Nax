@@ -41,7 +41,7 @@ export const CustomCursor: React.FC = () => {
     let animationFrameId: number;
 
     const particles: Particle[] = [];
-    const colors = ['#00e5ff', '#ff9e2c', '#f8fafc', '#38bdf8'];
+    const colors = ['#b45309', '#0284c7', '#0f172a', '#64748b'];
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
@@ -192,8 +192,8 @@ export const CustomCursor: React.FC = () => {
           width: '8px',
           height: '8px',
           borderRadius: '50%',
-          backgroundColor: 'var(--color-cyan-glow)',
-          boxShadow: '0 0 10px rgba(0, 229, 255, 0.9), 0 0 20px rgba(0, 229, 255, 0.6)',
+          backgroundColor: 'var(--color-accent)',
+          boxShadow: '0 0 8px rgba(180, 83, 9, 0.7)',
           pointerEvents: 'none',
           zIndex: 9000,
           willChange: 'transform'
@@ -211,8 +211,8 @@ export const CustomCursor: React.FC = () => {
           width: '36px',
           height: '36px',
           borderRadius: '50%',
-          border: '1.5px solid var(--color-hunter-amber)',
-          boxShadow: '0 0 12px rgba(255, 158, 44, 0.45)',
+          border: '1.5px solid rgba(15, 23, 42, 0.45)',
+          boxShadow: '0 0 10px rgba(15, 23, 42, 0.08)',
           pointerEvents: 'none',
           zIndex: 8999,
           willChange: 'transform',

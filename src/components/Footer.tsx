@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
             alignItems: 'flex-start',
             gap: '2.5rem',
             paddingBottom: '2.5rem',
-            borderBottom: '1px solid rgba(242, 238, 230, 0.08)'
+            borderBottom: '1px solid var(--color-border)'
           }}
         >
           {/* Brand & Closing Identity */}
@@ -40,8 +40,9 @@ export const Footer: React.FC = () => {
                   width: '32px',
                   height: '32px',
                   borderRadius: 'var(--radius-xs)',
-                  background: 'linear-gradient(135deg, #1a1e26 0%, #090a0d 100%)',
-                  border: '1px solid rgba(229, 169, 82, 0.35)',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%)',
+                  border: '1px solid rgba(180, 83, 9, 0.35)',
+                  boxShadow: '0 2px 8px rgba(180, 83, 9, 0.12)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
