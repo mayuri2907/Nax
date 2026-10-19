@@ -10,16 +10,42 @@ const STORAGE_KEY = 'navin_portfolio_intro_seen';
 
 interface PhraseSegment {
   text: string;
+  category: string;
   startPct: number;
   typeEndPct: number;
   endPct: number;
 }
 
-const PHRASE_SEGMENTS: PhraseSegment[] = [
-  { text: 'NAVIN CHAUDHARY', startPct: 0, typeEndPct: 22, endPct: 25 },
-  { text: 'FOUNDER & FULL-STACK DEVELOPER', startPct: 25, typeEndPct: 52, endPct: 56 },
-  { text: 'ENGINEERING PRECISION', startPct: 56, typeEndPct: 78, endPct: 82 },
-  { text: 'VYROBYTE', startPct: 82, typeEndPct: 96, endPct: 100 }
+// 4 Motivating Lines: Navin's name first, then 3 powerful motivating founder statements
+const MOTIVATED_SEGMENTS: PhraseSegment[] = [
+  {
+    text: 'NAVIN CHAUDHARY',
+    category: 'FOUNDER & ARCHITECT',
+    startPct: 0,
+    typeEndPct: 20,
+    endPct: 24
+  },
+  {
+    text: 'TURNING CURIOSITY INTO MEANINGFUL SYSTEMS.',
+    category: 'CORE MOTIVATION',
+    startPct: 24,
+    typeEndPct: 46,
+    endPct: 49
+  },
+  {
+    text: 'DISCIPLINE OVER SHORTCUTS. PRECISION OVER NOISE.',
+    category: 'ENGINEERING ETHOS',
+    startPct: 49,
+    typeEndPct: 72,
+    endPct: 75
+  },
+  {
+    text: 'NOT HERE TO FOLLOW. HERE TO BUILD.',
+    category: 'STARTUP VISION // VYROBYTE',
+    startPct: 75,
+    typeEndPct: 96,
+    endPct: 100
+  }
 ];
 
 export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
@@ -28,6 +54,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
 
   const [counterValue, setCounterValue] = useState<number>(0);
   const [displayedText, setDisplayedText] = useState<string>('');
+  const [activeCategory, setActiveCategory] = useState<string>(MOTIVATED_SEGMENTS[0].category);
   const [isDismissed, setIsDismissed] = useState<boolean>(false);
 
   const reducedMotion = useReducedMotion();
@@ -74,7 +101,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       return;
     }
 
-    // GSAP Timeline running for ~3.8 seconds (3 to 5 second duration)
+    // GSAP Timeline running for ~4.2 seconds (fits in 3-5 seconds duration)
     const counterObj = { value: 0 };
 
     const ctx = gsap.context(() => {
@@ -86,7 +113,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
 
       tl.to(counterObj, {
         value: 100,
-        duration: 3.8, // 3.8 seconds total duration
+        duration: 4.2,
         ease: 'none',
         onUpdate: () => {
           const currentVal = Math.min(Math.round(counterObj.value), 100);
@@ -96,14 +123,16 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
             progressLineRef.current.style.width = `${currentVal}%`;
           }
 
-          // Compute character-by-character text reveal based on current progress percentage
+          // Active segment calculation
           const activeSegment =
-            PHRASE_SEGMENTS.find(
+            MOTIVATED_SEGMENTS.find(
               (seg) => currentVal >= seg.startPct && currentVal <= seg.endPct
-            ) || PHRASE_SEGMENTS[PHRASE_SEGMENTS.length - 1];
+            ) || MOTIVATED_SEGMENTS[MOTIVATED_SEGMENTS.length - 1];
+
+          setActiveCategory(activeSegment.category);
 
           if (currentVal >= activeSegment.typeEndPct) {
-            // Fully typed out for this segment
+            // Fully typed line holding briefly before next line
             setDisplayedText(activeSegment.text);
           } else {
             // Typing in character by character
@@ -180,28 +209,47 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
       <div
         style={{
           width: '100%',
-          maxWidth: '780px',
+          maxWidth: '820px',
           margin: '0 auto',
           textAlign: 'center',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '2.25rem'
+          gap: '1.75rem'
         }}
       >
+        {/* Category Badge for the Active Motivating Line */}
+        <div
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.75rem',
+            letterSpacing: '0.18em',
+            color: 'var(--color-accent)',
+            textTransform: 'uppercase',
+            fontWeight: 600,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.45rem'
+          }}
+        >
+          <span>✦</span>
+          <span>{activeCategory}</span>
+        </div>
+
         {/* Character-by-character typed phrase with smaller, refined modern font */}
-        <div style={{ minHeight: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ minHeight: '3.6rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <h1
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.25rem, 2.8vw, 1.95rem)',
+              fontSize: 'clamp(1.2rem, 2.5vw, 1.85rem)',
               fontWeight: 700,
-              letterSpacing: '0.08em',
+              letterSpacing: '0.04em',
               color: '#0F172A',
-              lineHeight: 1.2,
+              lineHeight: 1.3,
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.35rem'
+              gap: '0.35rem',
+              maxWidth: '740px'
             }}
           >
             <span>{displayedText}</span>
@@ -219,7 +267,7 @@ export const IntroSequence: React.FC<IntroSequenceProps> = ({ onComplete }) => {
         </div>
 
         {/* Minimalist Progress Track with Flanking Counters */}
-        <div style={{ width: '100%', maxWidth: '540px' }}>
+        <div style={{ width: '100%', maxWidth: '540px', marginTop: '0.5rem' }}>
           <div
             style={{
               display: 'flex',

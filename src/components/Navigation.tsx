@@ -3,6 +3,15 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { PAGES_CONFIG } from '../data/pagesConfig';
 
+// 5 clean primary single-word navigation links
+const NAV_PRIMARY_LINKS = [
+  { path: '/', label: 'Home' },
+  { path: '/about', label: 'About' },
+  { path: '/capabilities', label: 'Craft' },
+  { path: '/projects', label: 'Projects' },
+  { path: '/contact', label: 'Contact' }
+];
+
 export const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -42,10 +51,13 @@ export const Navigation: React.FC = () => {
     <header
       className={`site-navigation ${isScrolled ? 'site-navigation-scrolled' : ''}`}
       style={{
-        backgroundColor: isScrolled ? 'rgba(9, 10, 13, 0.94)' : 'rgba(9, 10, 13, 0.72)',
+        backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.94)' : 'rgba(248, 250, 252, 0.88)',
         borderBottom: isScrolled
-          ? '1px solid rgba(229, 169, 82, 0.25)'
-          : '1px solid rgba(255, 255, 255, 0.07)'
+          ? '1px solid rgba(15, 23, 42, 0.09)'
+          : '1px solid rgba(15, 23, 42, 0.06)',
+        boxShadow: isScrolled ? '0 4px 20px rgba(15, 23, 42, 0.05)' : 'none',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)'
       }}
     >
       <div
@@ -66,7 +78,9 @@ export const Navigation: React.FC = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.85rem'
+            gap: '0.85rem',
+            textDecoration: 'none',
+            flexShrink: 0
           }}
         >
           {/* Monogram emblem */}
@@ -98,7 +112,8 @@ export const Navigation: React.FC = () => {
                 fontWeight: 800,
                 fontSize: '1.05rem',
                 letterSpacing: '-0.01em',
-                color: 'var(--color-text-primary)'
+                color: 'var(--color-text-primary)',
+                lineHeight: 1.2
               }}
             >
               NAVIN CHAUDHARY
@@ -117,15 +132,43 @@ export const Navigation: React.FC = () => {
           </div>
         </Link>
 
-        {/* Desktop Navigation Capsule */}
-        <nav className="desktop-nav" aria-label="Main Navigation">
-          {PAGES_CONFIG.map((p) => {
-            const isActive = location.pathname === p.path;
+        {/* Desktop Navigation Capsule: Exactly 5 clean, single-word, non-wrapping links */}
+        <nav
+          className="desktop-nav"
+          aria-label="Main Navigation"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.25rem',
+            background: 'rgba(255, 255, 255, 0.85)',
+            border: '1px solid rgba(15, 23, 42, 0.08)',
+            borderRadius: 'var(--radius-full)',
+            padding: '0.35rem 0.5rem',
+            boxShadow: '0 2px 10px rgba(15, 23, 42, 0.03)'
+          }}
+        >
+          {NAV_PRIMARY_LINKS.map((item) => {
+            const isActive = location.pathname === item.path;
             return (
               <NavLink
-                key={p.path}
-                to={p.path}
-                className={`desktop-nav-link ${isActive ? 'active' : ''}`}
+                key={item.path}
+                to={item.path}
+                className={({ isActive: isLinkActive }) =>
+                  `desktop-nav-link ${isLinkActive ? 'active' : ''}`
+                }
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0.45rem 1rem',
+                  fontSize: '0.875rem',
+                  fontWeight: isActive ? 600 : 500,
+                  whiteSpace: 'nowrap',
+                  color: isActive ? 'var(--color-accent)' : '#475569',
+                  borderRadius: 'var(--radius-full)',
+                  textDecoration: 'none',
+                  transition: 'all var(--transition-fast)'
+                }}
               >
                 {isActive && (
                   <span
@@ -134,22 +177,28 @@ export const Navigation: React.FC = () => {
                       height: '5px',
                       borderRadius: '50%',
                       backgroundColor: 'var(--color-accent)',
-                      boxShadow: '0 0 6px rgba(229, 169, 82, 0.9)'
+                      boxShadow: '0 0 6px rgba(180, 83, 9, 0.7)'
                     }}
                   />
                 )}
-                <span>{p.label}</span>
+                <span>{item.label}</span>
               </NavLink>
             );
           })}
         </nav>
 
         {/* Desktop Right CTA */}
-        <div className="desktop-cta">
+        <div className="desktop-cta" style={{ flexShrink: 0 }}>
           <Link
             to="/contact"
             className="btn btn-accent"
-            style={{ padding: '0.6rem 1.35rem', fontSize: '0.825rem' }}
+            style={{
+              padding: '0.6rem 1.35rem',
+              fontSize: '0.825rem',
+              fontWeight: 600,
+              boxShadow: '0 4px 14px rgba(180, 83, 9, 0.25)',
+              whiteSpace: 'nowrap'
+            }}
           >
             <span>LET&rsquo;S TALK</span>
             <ArrowUpRight size={15} />
@@ -214,10 +263,11 @@ export const Navigation: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     padding: '0.65rem 0',
-                    borderBottom: '1px solid rgba(15, 23, 42, 0.08)'
+                    borderBottom: '1px solid rgba(15, 23, 42, 0.08)',
+                    textDecoration: 'none'
                   }}
                 >
-                  <span>{p.fullTitle}</span>
+                  <span>{p.label}</span>
                   {isActive && (
                     <span
                       style={{
@@ -225,7 +275,7 @@ export const Navigation: React.FC = () => {
                         height: '8px',
                         borderRadius: '50%',
                         backgroundColor: 'var(--color-accent)',
-                        boxShadow: '0 0 10px rgba(229, 169, 82, 0.9)'
+                        boxShadow: '0 0 10px rgba(180, 83, 9, 0.8)'
                       }}
                     />
                   )}
