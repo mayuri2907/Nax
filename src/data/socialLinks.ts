@@ -20,7 +20,7 @@ export interface ContactConfig {
 }
 
 export const contactConfig: ContactConfig = {
-  email: 'contact@vyrobyte.com',
+  email: 'chaudharynax27@gmail.com',
   isEmailConfigured: true,
   location: 'India',
   timezone: 'IST (UTC+5:30)',
@@ -29,8 +29,8 @@ export const contactConfig: ContactConfig = {
     {
       platform: 'GitHub',
       label: 'GitHub Profile',
-      url: 'https://github.com/NavinChaudhary',
-      displayValue: 'github.com/NavinChaudhary',
+      url: 'https://github.com/Nax46',
+      displayValue: 'github.com/Nax46',
       isConfigured: true
     },
     {

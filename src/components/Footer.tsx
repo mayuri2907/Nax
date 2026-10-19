@@ -94,7 +94,7 @@ export const Footer: React.FC = () => {
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8125rem', fontFamily: 'var(--font-mono)' }}>
                 <li><Link to="/principles" style={{ color: 'var(--color-muted)' }}>05 Principles</Link></li>
                 <li><Link to="/contact" style={{ color: 'var(--color-muted)' }}>06 Contact</Link></li>
-                <li><a href="https://github.com/NavinChaudhary" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)' }}>GitHub</a></li>
+                <li><a href="https://github.com/Nax46" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)' }}>GitHub</a></li>
               </ul>
             </div>
 
